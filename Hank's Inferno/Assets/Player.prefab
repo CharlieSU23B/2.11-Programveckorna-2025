@@ -260,6 +260,6 @@ MonoBehaviour:
   ground_layer:
     serializedVersion: 2
     m_Bits: 8
-  box_distance: 0.6
-  box_mask: {x: 0.5, y: 0.2}
+  box_distance: 0
+  box_mask: {x: 0.5, y: 0.05}
   fake_sprite: {fileID: 2246393110736584581}
