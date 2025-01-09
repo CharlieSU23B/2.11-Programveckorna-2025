@@ -86,6 +86,6 @@ public class PlayerMovement : MonoBehaviour
         x_scale += (1 - x_scale) * 10f * Time.deltaTime;
         y_scale += (1 - y_scale) * 10f * Time.deltaTime;
 
-        fake_sprite.transform.localScale = new Vector2(x_scale*transform.localScale.x, y_scale * transform.localScale.y);
+        fake_sprite.transform.localScale = new Vector2(x_scale, y_scale);
     }
 }
