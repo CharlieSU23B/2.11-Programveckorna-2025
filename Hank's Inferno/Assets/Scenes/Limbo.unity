@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 78576771}
   - component: {fileID: 78576770}
   - component: {fileID: 78576769}
+  - component: {fileID: 78576772}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -159,7 +160,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.0627451, g: 0.078431375, b: 0.12156863, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -184,7 +185,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -215,6 +216,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &78576772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78576768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e635d41dbed3c742b522394aeb2ad57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1678047033}
+  screen_shake: 0
 --- !u!1 &286753772
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 78576768}
   player: {fileID: 78576768}
-  division: 2.5
+  division: 3.5
 --- !u!212 &286753774
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -310,7 +325,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1070024506}
@@ -517,7 +532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 78576768}
   player: {fileID: 78576768}
-  division: 1.5
+  division: 2.5
 --- !u!212 &384706131
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -580,7 +595,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 331368483}
@@ -796,7 +811,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -3, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 1}
+  m_LocalScale: {x: 120, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -874,7 +889,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 53ac75fbc5535894e8d06bfc2534759e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6bb40c212568041469b5855c7c8e6bc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1001,7 +1016,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 78576768}
   player: {fileID: 78576768}
-  division: 3
+  division: 4
 --- !u!212 &789994588
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1064,7 +1079,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1456348909}
@@ -1355,7 +1370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 78576768}
   player: {fileID: 78576768}
-  division: 1
+  division: 2
 --- !u!212 &1479328360
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1397,7 +1412,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 53ac75fbc5535894e8d06bfc2534759e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6bb40c212568041469b5855c7c8e6bc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1418,13 +1433,18 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1810281277}
   - {fileID: 768942228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1678047033 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9217877199476055963, guid: 944bd5586287e974984deaf0a15855ea, type: 3}
+  m_PrefabInstance: {fileID: 3151741339829496685}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1762463114
 GameObject:
   m_ObjectHideFlags: 0
@@ -1582,7 +1602,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 53ac75fbc5535894e8d06bfc2534759e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6bb40c212568041469b5855c7c8e6bc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1625,7 +1645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 78576768}
   player: {fileID: 78576768}
-  division: 2
+  division: 3
 --- !u!212 &1852513066
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1688,7 +1708,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1236536829}
