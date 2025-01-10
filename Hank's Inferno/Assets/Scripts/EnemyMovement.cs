@@ -21,6 +21,7 @@ public class EnemyMovement : MonoBehaviour
     public GameObject enemy_bullet;
     public GameObject player;
     private float bullet_timer = 0;
+    public GameObject dust;
 
     // Start is called before the first frame update
     void Start()
@@ -91,6 +92,8 @@ public class EnemyMovement : MonoBehaviour
                             {
                                 if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 0.625f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 0.625f;
                             }
+
+                            Instantiate(dust, transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
 
                             x_scale = 1.5f;
                             y_scale = 0.5f;
