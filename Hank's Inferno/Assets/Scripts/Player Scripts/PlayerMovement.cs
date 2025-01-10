@@ -131,14 +131,14 @@ public class PlayerMovement : MonoBehaviour
                     rb.velocity = new Vector2(h_speed, v_speed);
 
                     // Squash and Stretch
-                    x_scale -= 0.025f;
-                    y_scale -= 0.025f;
+                    x_scale -= 0.1f;
+                    y_scale -= 0.1f;
 
-                    dash_charge += 0.025f;
+                    dash_charge += 0.1f;
 
                     fake_sprite.transform.localScale = new Vector2(x_scale, y_scale);
 
-                    if (!Input.GetKey(KeyCode.LeftShift) || x_scale <= 0f)
+                    if (x_scale <= 0f)
                     {
                         h_speed = Input.GetAxisRaw("Horizontal");
                         v_speed = Input.GetAxisRaw("Vertical");
