@@ -19,8 +19,8 @@ public class Parallax : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float temp = (cam.transform.position.x);
-        transform.position = new Vector3(player.transform.position.x / division, cam.GetComponent<CameraController>().camera_y, transform.position.z);
+        float temp = cam.transform.position.x;
+        transform.position = new Vector3(startpos + (player.transform.position.x / division), cam.GetComponent<CameraController>().camera_y, transform.position.z);
 
         if (temp > startpos + length) startpos += length;
         else if (temp < startpos - length) startpos -= length;

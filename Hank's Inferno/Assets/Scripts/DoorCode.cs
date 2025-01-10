@@ -67,7 +67,7 @@ public class DoorCode : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            if(Input.GetKey(KeyCode.E))
+            if(Input.GetKey(KeyCode.E) && collision.GetComponent<PlayerMovement>().state == "FREE")
             {
                 collision.GetComponent<PlayerMovement>().state = "ELEVATOR";
                 collision.GetComponent<PlayerMovement>().elevator = gameObject;

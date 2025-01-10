@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject elevator;
     public float elevator_timer = 0;
     private float elevator_y_speed = 0;
+    public GameObject dust;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
                             {
                                 if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 0.625f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 0.625f;
                             }
+
+                            Instantiate(dust, transform.position + new Vector3(0,1f,0), Quaternion.identity);
 
                             x_scale = 1.5f;
                             y_scale = 0.5f;
@@ -156,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
             case ("DASH"):
                 {
                     // Rigidbody
-                    rb.velocity = new Vector2(h_speed,v_speed).normalized * 32f * dash_charge;
+                    rb.velocity = new Vector2(h_speed,v_speed).normalized * 28f * dash_charge;
 
                     // Squash and Stretch
                     x_scale += (1 - x_scale) * 10f * Time.deltaTime;
