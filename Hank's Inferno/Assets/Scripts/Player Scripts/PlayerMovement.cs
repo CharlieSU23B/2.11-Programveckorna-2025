@@ -196,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
                                 elevator.transform.position = new Vector3(0, GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y, 0);
                                 transform.position = elevator.transform.position;
                                 GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y -= 32;
-                                elevator_timer = 25f;
+                                elevator_timer = 18f;
                                 elevator_y_speed = 0;
                             }
                         }

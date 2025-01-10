@@ -71,7 +71,7 @@ public class DoorCode : MonoBehaviour
             {
                 collision.GetComponent<PlayerMovement>().state = "ELEVATOR";
                 collision.GetComponent<PlayerMovement>().elevator = gameObject;
-                collision.GetComponent<PlayerMovement>().elevator_timer = 25f;
+                collision.GetComponent<PlayerMovement>().elevator_timer = 18f;
             }
         }
     }

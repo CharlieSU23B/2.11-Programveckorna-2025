@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2283841006665276257}
   - component: {fileID: 7800712541625221664}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerFakeSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 1043674152840412235}
   - component: {fileID: 1011659028486855952}
   - component: {fileID: 8388309413344455863}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -263,3 +263,6 @@ MonoBehaviour:
   box_distance: 0
   box_mask: {x: 0.5, y: 0.05}
   fake_sprite: {fileID: 2246393110736584581}
+  state: FREE
+  elevator: {fileID: 0}
+  elevator_timer: 0
