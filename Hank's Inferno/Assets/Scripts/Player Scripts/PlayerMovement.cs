@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject fake_sprite;
     string state = "FREE";
     private float dash_charge = 0;
+    private float jump_buffer = 0;
+    private bool dash = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +60,10 @@ public class PlayerMovement : MonoBehaviour
                             y_scale = 0.5f;
                         }
 
+                        dash = true;
+
+                        jump_buffer = 1;
+
                         grounded = true;
                         v_speed = 0;
                     }
@@ -65,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
                     {
                         grounded = false;
                         v_speed -= 50f * Time.deltaTime;
+
+                        jump_buffer -= 10f * Time.deltaTime;
                     }
 
                     // Jump
@@ -78,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
                         space_down = false;
                     }
 
-                    if (grounded && Input.GetKey(KeyCode.Space) && space_down == false)
+                    if (jump_buffer > 0 && Input.GetKey(KeyCode.Space) && space_down == false)
                     {
                         v_speed = 25;
 
@@ -87,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
 
                         space_down = true;
 
-                        grounded = false;
+                        jump_buffer = 0;
                     }
 
                     // Rigidbody
@@ -100,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
                     fake_sprite.transform.localScale = new Vector2(x_scale, y_scale);
 
                     // Dash init
-                    if(Input.GetKey(KeyCode.LeftShift))
+                    if(Input.GetKey(KeyCode.LeftShift) && dash == true)
                     {
                         h_speed = 0;
                         v_speed = 0;
@@ -109,6 +117,8 @@ public class PlayerMovement : MonoBehaviour
                         y_scale = 1;
 
                         dash_charge = 1;
+
+                        dash = false;
 
                         state = "DASH CHARGE";
                     }
@@ -143,7 +153,7 @@ public class PlayerMovement : MonoBehaviour
             case ("DASH"):
                 {
                     // Rigidbody
-                    rb.velocity = new Vector2(h_speed,v_speed).normalized * 24f * dash_charge;
+                    rb.velocity = new Vector2(h_speed,v_speed).normalized * 32f * dash_charge;
 
                     // Squash and Stretch
                     x_scale += (1 - x_scale) * 10f * Time.deltaTime;
@@ -157,7 +167,5 @@ public class PlayerMovement : MonoBehaviour
                 }
                 break;
         }
-
-        Debug.Log(rb.velocity);
     }
 }
