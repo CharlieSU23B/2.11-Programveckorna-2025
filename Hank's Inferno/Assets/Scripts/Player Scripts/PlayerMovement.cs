@@ -17,10 +17,13 @@ public class PlayerMovement : MonoBehaviour
     private float x_scale = 0f;
     private float y_scale = 0f;
     public GameObject fake_sprite;
-    string state = "FREE";
+    public string state = "FREE";
     private float dash_charge = 0;
     private float jump_buffer = 0;
     private bool dash = false;
+    public GameObject elevator;
+    public float elevator_timer = 0;
+    private float elevator_y_speed = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -164,6 +167,57 @@ public class PlayerMovement : MonoBehaviour
                     dash_charge -= 0.1f;
 
                     if (dash_charge <= 0f) state = "FREE";
+                }
+                break;
+
+            case ("ELEVATOR"):
+                {
+                    rb.velocity = new Vector2(0, 0);
+                    h_speed = 0;
+                    v_speed = 0;
+                    
+                    if (elevator_timer > 0)
+                    {
+                        transform.position += ((elevator.transform.position + new Vector3(0, -1f, 0)) - transform.position) * 10f * Time.deltaTime;
+                    }
+                    else
+                    {
+                        elevator.transform.position += new Vector3(0, -elevator_y_speed, 0);
+                        elevator_y_speed += 0.1f;
+
+                        if(elevator_y_speed > 5f)
+                        {
+                            GameObject.Find("Main Camera").GetComponent<CameraController>().fade = true;
+
+                            if(GameObject.Find("Main Camera").GetComponent<CameraController>().alpha >= 1)
+                            {
+                                state = "ELEVATOR OPEN";
+                                GameObject.Find("Main Camera").GetComponent<CameraController>().fade = false;
+                                elevator.transform.position = new Vector3(0, GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y, 0);
+                                transform.position = elevator.transform.position;
+                                GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y -= 32;
+                                elevator_timer = 25f;
+                                elevator_y_speed = 0;
+                            }
+                        }
+
+                        transform.position = elevator.transform.position + new Vector3(0, -1f, 0);
+                    }
+
+                    elevator_timer -= 10f * Time.deltaTime;
+                }
+                break;
+
+            case ("ELEVATOR OPEN"):
+                {
+                    elevator.transform.position += (new Vector3(0, GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y - 2.5f, 0) - transform.position) * 10f * Time.deltaTime;
+                    transform.position = elevator.transform.position + new Vector3(0, -1f, 0);
+                    elevator_timer -= 10f * Time.deltaTime;
+
+                    if(elevator_timer <= 0f)
+                    {
+                        state = "FREE";
+                    }
                 }
                 break;
         }
