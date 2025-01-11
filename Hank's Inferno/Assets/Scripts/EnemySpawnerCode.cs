@@ -5,8 +5,9 @@ using UnityEngine;
 public class EnemySpawnerCode : MonoBehaviour
 {
     public GameObject enemy;
-    private float timer = 12f;
+    private float timer = 25f;
     private float rotation = 0;
+    public float camera_y = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,8 @@ public class EnemySpawnerCode : MonoBehaviour
     {
         transform.rotation = Quaternion.Euler(0, 0, rotation);
         rotation += 5f;
+
+        if(camera_y != GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y) timer = 25f;
 
         timer -= 10f * Time.deltaTime;
 
