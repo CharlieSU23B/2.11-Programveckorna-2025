@@ -196,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
                         x_scale = 0.5f;
                         y_scale = 1.5f;
                         dash_charge = 2.25f;
-
+                        dash = true;
                         Instantiate(dust, transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
 
                         if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 2f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 2f;
