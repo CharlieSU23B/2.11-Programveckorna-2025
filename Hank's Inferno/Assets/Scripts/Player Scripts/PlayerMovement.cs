@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private float max_speed = 8.5f;
     private bool grounded = false;
     private bool space_down = false;
+    private bool shift_down = false;
     public LayerMask ground_layer;
     public float box_distance = 0;
     public Vector2 box_mask;
@@ -25,10 +26,29 @@ public class PlayerMovement : MonoBehaviour
     public float elevator_timer = 0;
     private float elevator_y_speed = 0;
     public GameObject dust;
+    public float rooms = 10;
+    public bool[] room_entered = new bool[10];
+    public int room_i = 0;
     // Start is called before the first frame update
     void Start()
     {
-        
+        float _choose = Random.Range(0, 100);
+        int _current_i = 0;
+
+        for (room_i = 0; room_i < rooms; room_i++)
+        {
+            if (room_i * (100 / rooms) <= _choose)
+            {
+                transform.position = new Vector3(0, -room_i * 32, 0);
+
+                GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y = -room_i * 32;
+                GameObject.Find("Door").GetComponent<DoorCode>().transform.position = new Vector3(0, transform.position.y - 1.5f, 0);
+
+                _current_i = room_i;
+            }
+        }
+
+        room_i = _current_i;
     }
 
     // Update is called once per frame
@@ -114,7 +134,12 @@ public class PlayerMovement : MonoBehaviour
                     fake_sprite.transform.localScale = new Vector2(x_scale, y_scale);
 
                     // Dash init
-                    if(Input.GetKey(KeyCode.LeftShift) && dash == true)
+                    if(!Input.GetKey(KeyCode.LeftShift))
+                    {
+                        shift_down = false;
+                    }
+
+                    if(Input.GetKey(KeyCode.LeftShift) && dash == true && shift_down == false)
                     {
                         h_speed = 0;
                         v_speed = 0;
@@ -125,6 +150,8 @@ public class PlayerMovement : MonoBehaviour
                         dash_charge = 1;
 
                         dash = false;
+
+                        shift_down = true;
 
                         state = "DASH CHARGE";
                     }
@@ -196,9 +223,33 @@ public class PlayerMovement : MonoBehaviour
                             {
                                 state = "ELEVATOR OPEN";
                                 GameObject.Find("Main Camera").GetComponent<CameraController>().fade = false;
-                                elevator.transform.position = new Vector3(0, GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y, 0);
                                 transform.position = elevator.transform.position;
-                                GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y -= 32;
+
+                                room_entered[room_i] = true;
+
+                                while (room_entered[room_i] == true)
+                                {
+                                    float _choose = Random.Range(0, 100);
+                                    int _current_i = 0;
+
+                                    room_i = 0;
+                                    for (room_i = 0; room_i < rooms; room_i++)
+                                    {
+                                        if (room_i * (100 / rooms) <= _choose)
+                                        {
+                                            transform.position = new Vector3(0, -room_i * 32, 0);
+
+                                            GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y = -room_i * 32;
+                                            _current_i = room_i;
+                                        }
+                                    }
+                                    room_i = _current_i;
+                                }
+
+                                elevator.transform.position = new Vector3(0, GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y+32, 0);
+
+                                GameObject.Find("Main Camera").transform.position = new Vector3(0,GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y,-10);
+
                                 elevator_timer = 18f;
                                 elevator_y_speed = 0;
                             }

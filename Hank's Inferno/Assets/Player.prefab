@@ -266,3 +266,4 @@ MonoBehaviour:
   state: FREE
   elevator: {fileID: 0}
   elevator_timer: 0
+  dust: {fileID: 7082710208605266354, guid: 8115ee8604a5f3b4b9046cdf53ea4b12, type: 3}
