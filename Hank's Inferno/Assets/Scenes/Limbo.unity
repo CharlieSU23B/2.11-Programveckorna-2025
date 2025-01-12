@@ -1755,7 +1755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1859475714837288241, guid: 17b50873f21fc0648a398508c0393042, type: 3}
       propertyPath: enemy_index
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5206614609654975077, guid: 17b50873f21fc0648a398508c0393042, type: 3}
       propertyPath: m_LocalPosition.x
