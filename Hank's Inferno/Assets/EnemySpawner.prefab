@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,4 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09472cc276b98e64fb4e2f31baba9ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 2280827477226464914, guid: a5ca5b0364cea444aaac2f48ed93cd40, type: 3}
+  enemy:
+  - {fileID: 2280827477226464914, guid: a5ca5b0364cea444aaac2f48ed93cd40, type: 3}
+  - {fileID: 2280827477226464914, guid: 8ce5033c049e90246b80f89811ec9d01, type: 3}
+  camera_y: 0
+  enemy_index: 0
