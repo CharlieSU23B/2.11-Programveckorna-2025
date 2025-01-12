@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class EnemySpawnerCode : MonoBehaviour
 {
-    public GameObject enemy;
+    public GameObject[] enemy = new GameObject[99];
     private float timer = 25f;
     private float rotation = 0;
     public float camera_y = 0;
+    public int enemy_index = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,7 @@ public class EnemySpawnerCode : MonoBehaviour
 
         if(timer <= 0)
         {
-            Instantiate(enemy, transform.position, Quaternion.identity);
+            Instantiate(enemy[enemy_index], transform.position, Quaternion.identity);
             if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 3f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 3f;
             Destroy(gameObject);
         }
