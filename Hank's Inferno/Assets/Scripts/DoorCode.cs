@@ -25,19 +25,19 @@ public class DoorCode : MonoBehaviour
             {
                 if (GameObject.Find("Player").GetComponent<PlayerMovement>().elevator_timer > 10)
                 {
-                    door_1.transform.position += (new Vector3(transform.position.x + 1f, transform.position.y, transform.position.z) - door_1.transform.position) * 10f * Time.deltaTime;
-                    door_2.transform.position += (new Vector3(transform.position.x - 1f, transform.position.y, transform.position.z) - door_2.transform.position) * 10f * Time.deltaTime;
+                    door_1.transform.position += (new Vector3(transform.position.x + 2f, transform.position.y, transform.position.z) - door_1.transform.position) * 10f * Time.deltaTime;
+                    door_2.transform.position += (new Vector3(transform.position.x - 2f, transform.position.y, transform.position.z) - door_2.transform.position) * 10f * Time.deltaTime;
                 }
                 else
                 {
-                    door_1.transform.position += (new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z) - door_1.transform.position) * 10f * Time.deltaTime;
-                    door_2.transform.position += (new Vector3(transform.position.x - 0.5f, transform.position.y, transform.position.z) - door_2.transform.position) * 10f * Time.deltaTime;
+                    door_1.transform.position += (new Vector3(transform.position.x + 1, transform.position.y, transform.position.z) - door_1.transform.position) * 10f * Time.deltaTime;
+                    door_2.transform.position += (new Vector3(transform.position.x - 1, transform.position.y, transform.position.z) - door_2.transform.position) * 10f * Time.deltaTime;
                 }
             }
             else
             {
-                door_1.transform.position = new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z);
-                door_2.transform.position = new Vector3(transform.position.x - 0.5f, transform.position.y, transform.position.z);
+                door_1.transform.position = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
+                door_2.transform.position = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
             }
         }
         else
@@ -46,19 +46,19 @@ public class DoorCode : MonoBehaviour
             {
                 if (GameObject.Find("Player").GetComponent<PlayerMovement>().elevator_timer <= 10)
                 {
-                    door_1.transform.position += (new Vector3(transform.position.x + 1f, transform.position.y, transform.position.z) - door_1.transform.position) * 10f * Time.deltaTime;
-                    door_2.transform.position += (new Vector3(transform.position.x - 1f, transform.position.y, transform.position.z) - door_2.transform.position) * 10f * Time.deltaTime;
+                    door_1.transform.position += (new Vector3(transform.position.x + 2f, transform.position.y, transform.position.z) - door_1.transform.position) * 10f * Time.deltaTime;
+                    door_2.transform.position += (new Vector3(transform.position.x - 2f, transform.position.y, transform.position.z) - door_2.transform.position) * 10f * Time.deltaTime;
                 }
                 else
                 {
-                    door_1.transform.position += (new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z) - door_1.transform.position) * 10f * Time.deltaTime;
-                    door_2.transform.position += (new Vector3(transform.position.x - 0.5f, transform.position.y, transform.position.z) - door_2.transform.position) * 10f * Time.deltaTime;
+                    door_1.transform.position += (new Vector3(transform.position.x + 1, transform.position.y, transform.position.z) - door_1.transform.position) * 10f * Time.deltaTime;
+                    door_2.transform.position += (new Vector3(transform.position.x - 1, transform.position.y, transform.position.z) - door_2.transform.position) * 10f * Time.deltaTime;
                 }
             }
             else
             {
-                door_1.transform.position = new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z);
-                door_2.transform.position = new Vector3(transform.position.x - 0.5f, transform.position.y, transform.position.z);
+                door_1.transform.position = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
+                door_2.transform.position = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
             }
         }
     }

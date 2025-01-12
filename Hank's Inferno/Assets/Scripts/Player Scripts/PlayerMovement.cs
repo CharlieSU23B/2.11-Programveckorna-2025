@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public float rooms = 10;
     public bool[] room_entered = new bool[10];
     public int room_i = 0;
+    private float flip_scale = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
                 transform.position = new Vector3(0, -room_i * 32, 0);
 
                 GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y = -room_i * 32;
-                GameObject.Find("Door").GetComponent<DoorCode>().transform.position = new Vector3(0, transform.position.y - 1.5f, 0);
+                GameObject.Find("Door").GetComponent<DoorCode>().transform.position = new Vector3(0, transform.position.y - 0.5f, 0);
 
                 _current_i = room_i;
             }
@@ -64,6 +65,8 @@ public class PlayerMovement : MonoBehaviour
                     if (walk_dir != 0)
                     {
                         h_speed += ((max_speed * walk_dir) - h_speed) * 10f * Time.deltaTime;
+
+                        flip_scale = walk_dir;
                     }
                     else
                     {
@@ -131,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
                     x_scale += (1 - x_scale) * 10f * Time.deltaTime;
                     y_scale += (1 - y_scale) * 10f * Time.deltaTime;
 
-                    fake_sprite.transform.localScale = new Vector2(x_scale, y_scale);
+                    fake_sprite.transform.localScale = new Vector2(x_scale*flip_scale*2, y_scale * 2);
 
                     // Dash init
                     if(!Input.GetKey(KeyCode.LeftShift))
@@ -169,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
 
                     dash_charge += 0.1f;
 
-                    fake_sprite.transform.localScale = new Vector2(x_scale, y_scale);
+                    fake_sprite.transform.localScale = new Vector2(x_scale * flip_scale * 2, y_scale * 2);
 
                     if (x_scale <= 0f)
                     {
@@ -206,7 +209,7 @@ public class PlayerMovement : MonoBehaviour
                     x_scale += (1 - x_scale) * 10f * Time.deltaTime;
                     y_scale += (1 - y_scale) * 10f * Time.deltaTime;
 
-                    fake_sprite.transform.localScale = new Vector2(x_scale, y_scale);
+                    fake_sprite.transform.localScale = new Vector2(x_scale * flip_scale * 2, y_scale * 2);
 
                     dash_charge -= 0.1f;
 
@@ -222,7 +225,7 @@ public class PlayerMovement : MonoBehaviour
                     
                     if (elevator_timer > 0)
                     {
-                        transform.position += ((elevator.transform.position + new Vector3(0, -1f, 0)) - transform.position) * 10f * Time.deltaTime;
+                        transform.position += ((elevator.transform.position + new Vector3(0, -2f, 0)) - transform.position) * 10f * Time.deltaTime;
                     }
                     else
                     {
@@ -269,7 +272,7 @@ public class PlayerMovement : MonoBehaviour
                             }
                         }
 
-                        transform.position = elevator.transform.position + new Vector3(0, -1f, 0);
+                        transform.position = elevator.transform.position + new Vector3(0, -2f, 0);
                     }
 
                     elevator_timer -= 10f * Time.deltaTime;
@@ -279,7 +282,7 @@ public class PlayerMovement : MonoBehaviour
             case ("ELEVATOR OPEN"):
                 {
                     elevator.transform.position += (new Vector3(0, GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y - 2.5f, 0) - transform.position) * 10f * Time.deltaTime;
-                    transform.position = elevator.transform.position + new Vector3(0, -1f, 0);
+                    transform.position = elevator.transform.position + new Vector3(0, -2f, 0);
                     elevator_timer -= 10f * Time.deltaTime;
 
                     if(elevator_timer <= 0f)
