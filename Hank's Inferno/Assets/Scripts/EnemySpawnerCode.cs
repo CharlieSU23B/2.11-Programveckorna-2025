@@ -9,6 +9,7 @@ public class EnemySpawnerCode : MonoBehaviour
     private float rotation = 0;
     public float camera_y = 0;
     public int enemy_index = 0;
+    public bool enemy_kill = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +23,19 @@ public class EnemySpawnerCode : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, rotation);
         rotation += 5f;
 
-        if(camera_y != GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y) timer = 25f;
+        if (camera_y != GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y)
+        {
+            timer = 25f;
+        }
+        else
+        {
+            if (enemy_kill == false)
+            {
+                GameObject.Find("Player").GetComponent<PlayerMovement>().enemies_to_kill++;
+
+                enemy_kill = true;
+            }
+        }
 
         timer -= 10f * Time.deltaTime;
 

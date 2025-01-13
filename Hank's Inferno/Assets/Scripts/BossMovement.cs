@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class BossMovement : MonoBehaviour
@@ -23,8 +24,12 @@ public class BossMovement : MonoBehaviour
     public GameObject player;
     private float bullet_timer = 0;
     public GameObject dust;
-    public float hp = 300;
-    public float max_hp = 300;
+    public float hp = 1200;
+    public float max_hp = 1200;
+    private float draw_hp = 0;
+    public GameObject boss_health_bar;
+    public Image health_fill;
+    public GameObject health_bar;
     //private float wave_timer = 25f;
 
     public float flash = 0;
@@ -34,6 +39,10 @@ public class BossMovement : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+
+        health_bar = GameObject.Find("BossHealthFill");
+        boss_health_bar = GameObject.Find("BossHealthBar");
+        health_fill = health_bar.GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -182,12 +191,23 @@ public class BossMovement : MonoBehaviour
                 break;
         }
 
+        // Health bar Stuff
+        draw_hp += (hp - draw_hp) * 5f * Time.deltaTime;
+
+        health_fill.fillAmount = (draw_hp / max_hp);
+
+        boss_health_bar.GetComponent<HealthBarHide>().alpha += 0.2f;
+
         flash_sprite.color = new Color(1, 1, 1, flash);
         flash -= 0.1f;
         flash = Mathf.Clamp(flash, 0, 1);
 
+        hp = Mathf.Clamp(hp, 0, max_hp);
+
         if (hp <= 0)
         {
+            GameObject.Find("Player").GetComponent<PlayerMovement>().enemies_to_kill--;
+
             Destroy(gameObject);
         }
     }
