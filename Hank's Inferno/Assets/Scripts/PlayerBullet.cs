@@ -23,4 +23,12 @@ public class PlayerBullet : MonoBehaviour
         transform.position += transform.right * speed * Time.fixedDeltaTime;
         speed = Mathf.Max(speed - drag * Time.fixedDeltaTime, 0f);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Ground")
+        {
+            Destroy(gameObject);
+        }
+    }
 }
