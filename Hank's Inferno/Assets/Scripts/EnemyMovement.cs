@@ -22,6 +22,9 @@ public class EnemyMovement : MonoBehaviour
     public GameObject player;
     private float bullet_timer = 0;
     public GameObject dust;
+    public float hp = 20;
+    public float flash = 0;
+    public SpriteRenderer flash_sprite;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +33,7 @@ public class EnemyMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         switch(state)
         {
@@ -118,6 +121,15 @@ public class EnemyMovement : MonoBehaviour
                     fake_sprite.transform.localScale = new Vector2(x_scale, y_scale);
                 }
                 break;
+        }
+
+        flash_sprite.color = new Color(1, 1, 1, flash);
+        flash -= 0.1f;
+        flash = Mathf.Clamp(flash, 0, 1);
+
+        if(hp <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }

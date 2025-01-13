@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weapon 1
   m_EditorClassIdentifier: 
   name: Yas
-  damage: 1
+  damage: 10
   speed: 16
   hitscan: 0
   spread: 3

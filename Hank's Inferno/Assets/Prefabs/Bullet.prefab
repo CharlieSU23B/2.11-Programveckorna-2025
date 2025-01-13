@@ -105,9 +105,9 @@ MonoBehaviour:
   knockback: 4
   damage: 1
   hitscan: 0
-  dust: {fileID: 7082710208605266354, guid: 8115ee8604a5f3b4b9046cdf53ea4b12, type: 3}
+  dust: {fileID: 7827948964007492516, guid: 9503c01ee8db7324abb5f6f696fc50cc, type: 3}
   rot: {x: 0, y: 0, z: 0, w: 0}
-  target_scale: 1
+  target_scale: 0.5
 --- !u!58 &9051501250505080395
 CircleCollider2D:
   m_ObjectHideFlags: 0
