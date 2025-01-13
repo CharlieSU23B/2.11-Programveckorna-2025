@@ -65,7 +65,6 @@ public class GamblingGun : MonoBehaviour
         //rot = Quaternion.EulerAngles(0, 0, rot.eulerAngles.z + Random.Range(-weapons[curWeapon].spread, weapons[curWeapon].spread));
         GameObject b = Instantiate(bullet, transform.position + centerOffset, rot);
         b.transform.localScale = new Vector3(weapons[curWeapon].size, weapons[curWeapon].size, 1);
-        b.GetComponent<PlayerBullet>().rot = rot;
 
         PlayerBullet bul = b.GetComponent<PlayerBullet>();
         bul.speed = weapons[curWeapon].speed + Random.Range(-weapons[curWeapon].speedVariation, weapons[curWeapon].speedVariation);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
@@ -11,15 +12,12 @@ public class PlayerBullet : MonoBehaviour
     public float damage = 1;
     public bool hitscan = false;
     public GameObject dust;
-    public Quaternion rot;
-    public float target_scale = 1;
+    public float target_scale = 0.5f;
 
     // Start is called before the first frame update
     void Awake()
     {
-        Destroy(gameObject, lifetime);
-
-        
+        Destroy(gameObject, lifetime); 
     }
 
     private void Start()
@@ -41,8 +39,38 @@ public class PlayerBullet : MonoBehaviour
     {
         if (collision.tag == "Ground")
         {
-            GameObject _dust = Instantiate(dust, transform.position, Quaternion.Euler(rot.x, rot.y, rot.z+90));
-            _dust.transform.localScale = new Vector3(0.5f, 1f, 1f);
+            GameObject _dust = Instantiate(dust, transform.position, Quaternion.identity);
+
+            Destroy(gameObject);
+        }
+
+        if(collision.tag == "Enemy")
+        {
+            if (collision.GetComponent<EnemyMovement>() != null)
+            {
+                collision.GetComponent<EnemyMovement>().hp -= damage;
+                collision.GetComponent<EnemyMovement>().flash = 1;
+            }
+
+            if (collision.GetComponent<EnemyMovement2>() != null)
+            {
+                collision.GetComponent<EnemyMovement2>().hp -= damage;
+                collision.GetComponent<EnemyMovement2>().flash = 1;
+            }
+
+            if (collision.GetComponent<EnemyMovement3>() != null)
+            {
+                collision.GetComponent<EnemyMovement3>().hp -= damage;
+                collision.GetComponent<EnemyMovement3>().flash = 1;
+            }
+
+            if (collision.GetComponent<BossMovement>() != null)
+            {
+                collision.GetComponent<BossMovement>().hp -= damage;
+                collision.GetComponent<BossMovement>().flash = 1;
+            }
+
+            if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 4f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 4f;
 
             Destroy(gameObject);
         }

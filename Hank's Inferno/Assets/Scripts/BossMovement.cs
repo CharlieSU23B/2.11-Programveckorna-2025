@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class BossMovement : MonoBehaviour
 {
@@ -26,6 +27,9 @@ public class BossMovement : MonoBehaviour
     public float max_hp = 300;
     //private float wave_timer = 25f;
 
+    public float flash = 0;
+    public SpriteRenderer flash_sprite;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +37,7 @@ public class BossMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         switch(state)
         {
@@ -176,6 +180,15 @@ public class BossMovement : MonoBehaviour
                     fake_sprite.transform.localScale = new Vector2(x_scale*4, y_scale*4);
                 }
                 break;
+        }
+
+        flash_sprite.color = new Color(1, 1, 1, flash);
+        flash -= 0.1f;
+        flash = Mathf.Clamp(flash, 0, 1);
+
+        if (hp <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
