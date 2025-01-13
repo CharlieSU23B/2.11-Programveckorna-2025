@@ -207,6 +207,8 @@ public class EnemyMovement2 : MonoBehaviour
 
         if (hp <= 0)
         {
+            GameObject.Find("Player").GetComponent<PlayerMovement>().enemies_to_kill--;
+
             Destroy(gameObject);
         }
 

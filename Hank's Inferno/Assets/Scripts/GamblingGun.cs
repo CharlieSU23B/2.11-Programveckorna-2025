@@ -16,6 +16,7 @@ public class GamblingGun : MonoBehaviour
     [SerializeField] private GameObject bullet;
 
     float rerollTime = 0f;
+    float time = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -29,8 +30,11 @@ public class GamblingGun : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
             Roll();
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0) && time <= 0)
+        {
             Shoot();
+            time = 2;
+        }
 
         if(rerollTime > 0f)
         {
@@ -43,6 +47,8 @@ public class GamblingGun : MonoBehaviour
                 slot3.text = curWeapon.ToString();
             }
         }
+
+        time -= 10f * Time.deltaTime;
     }
 
     public void Roll()

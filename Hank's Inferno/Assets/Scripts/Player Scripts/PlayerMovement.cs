@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     public int room_i = 0;
     private float flip_scale = 1;
     private float rooms_count = 0;
+    public int enemies_to_kill = 0;
     // Start is called before the first frame update
     void Start()
     {
