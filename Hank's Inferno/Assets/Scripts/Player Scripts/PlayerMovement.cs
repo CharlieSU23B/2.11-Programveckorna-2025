@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public bool[] room_entered = new bool[10];
     public int room_i = 0;
     private float flip_scale = 1;
+    private float rooms_count = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         room_i = _current_i;
+        rooms_count++;
     }
 
     // Update is called once per frame
@@ -238,37 +240,61 @@ public class PlayerMovement : MonoBehaviour
 
                             if(GameObject.Find("Main Camera").GetComponent<CameraController>().alpha >= 1)
                             {
-                                state = "ELEVATOR OPEN";
-                                GameObject.Find("Main Camera").GetComponent<CameraController>().fade = false;
-                                transform.position = elevator.transform.position;
-
-                                room_entered[room_i] = true;
-
-                                while (room_entered[room_i] == true)
+                                if (rooms_count < 10)
                                 {
-                                    float _choose = Random.Range(0, 100);
-                                    int _current_i = 0;
+                                    state = "ELEVATOR OPEN";
+                                    GameObject.Find("Main Camera").GetComponent<CameraController>().fade = false;
+                                    transform.position = elevator.transform.position;
 
-                                    room_i = 0;
-                                    for (room_i = 0; room_i < rooms; room_i++)
+                                    room_entered[room_i] = true;
+
+                                    while (room_entered[room_i] == true)
                                     {
-                                        if (room_i * (100 / rooms) <= _choose)
+                                        float _choose = Random.Range(0, 100);
+                                        int _current_i = 0;
+
+                                        room_i = 0;
+                                        for (room_i = 0; room_i < rooms; room_i++)
                                         {
-                                            transform.position = new Vector3(0, -room_i * 32, 0);
+                                            if (room_i * (100 / rooms) <= _choose)
+                                            {
+                                                transform.position = new Vector3(0, -room_i * 32, 0);
 
-                                            GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y = -room_i * 32;
-                                            _current_i = room_i;
+                                                GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y = -room_i * 32;
+                                                _current_i = room_i;
+                                            }
                                         }
+                                        room_i = _current_i;
+
+                                        rooms_count++;
                                     }
-                                    room_i = _current_i;
+
+                                    elevator.transform.position = new Vector3(0, GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y + 32, 0);
+
+                                    GameObject.Find("Main Camera").transform.position = new Vector3(0, GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y, -10);
+
+                                    elevator_timer = 18f;
+                                    elevator_y_speed = 0;
                                 }
+                                else
+                                {
+                                    state = "ELEVATOR OPEN";
+                                    GameObject.Find("Main Camera").GetComponent<CameraController>().fade = false;
+                                    transform.position = elevator.transform.position;
 
-                                elevator.transform.position = new Vector3(0, GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y+32, 0);
+                                    room_entered[room_i] = true;
 
-                                GameObject.Find("Main Camera").transform.position = new Vector3(0,GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y,-10);
+                                    transform.position = new Vector3(0, -320, 0);
 
-                                elevator_timer = 18f;
-                                elevator_y_speed = 0;
+                                    GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y = -320;
+
+                                    elevator.transform.position = new Vector3(0, GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y + 32, 0);
+
+                                    GameObject.Find("Main Camera").transform.position = new Vector3(0, GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y, -10);
+
+                                    elevator_timer = 18f;
+                                    elevator_y_speed = 0;
+                                }
                             }
                         }
 

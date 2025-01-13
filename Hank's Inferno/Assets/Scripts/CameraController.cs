@@ -11,6 +11,8 @@ public class CameraController : MonoBehaviour
     public SpriteRenderer transition;
     public float alpha = 1;
     public bool fade = false;
+    public SpriteRenderer screen_flash;
+    public float flash_alpha = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -44,5 +46,10 @@ public class CameraController : MonoBehaviour
         }
 
         alpha = Mathf.Clamp(alpha, 0, 1f);
+
+        // Screen Flash Red
+        flash_alpha -= 5f * Time.deltaTime;
+        flash_alpha = Mathf.Clamp(flash_alpha, 0, 1f);
+        screen_flash.color = new Color(1f, 0, 0, flash_alpha);
     }
 }

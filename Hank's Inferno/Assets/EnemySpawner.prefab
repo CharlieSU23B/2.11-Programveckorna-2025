@@ -101,5 +101,6 @@ MonoBehaviour:
   - {fileID: 2280827477226464914, guid: a5ca5b0364cea444aaac2f48ed93cd40, type: 3}
   - {fileID: 2280827477226464914, guid: 8ce5033c049e90246b80f89811ec9d01, type: 3}
   - {fileID: 2280827477226464914, guid: a5766f0d6ce51e44fa2caee4a834d5d9, type: 3}
+  - {fileID: 2280827477226464914, guid: caee111dc4ac8154682459af25213423, type: 3}
   camera_y: 0
   enemy_index: 0
