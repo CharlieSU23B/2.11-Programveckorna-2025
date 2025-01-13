@@ -1911,6 +1911,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 9217877198135943030}
   screen_shake: 0
+  camera_y: 0
+  transition: {fileID: 0}
+  alpha: 1
+  fade: 0
 --- !u!81 &1565527047
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2355,6 +2359,7 @@ GameObject:
   - component: {fileID: 1043674152058141862}
   - component: {fileID: 1011659027654319613}
   - component: {fileID: 9217877198135943031}
+  - component: {fileID: 9217877198135943032}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2388,6 +2393,28 @@ MonoBehaviour:
   groundCheck: {x: 0.95, y: 0.08}
   dashSpeed: 40
   dashDuration: 0.2
+--- !u!114 &9217877198135943032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9217877198135943030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f5052d08063da418e5c4ee23742128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 11400000, guid: f4f5ddceb94dd1442806a45cf1994062, type: 2}
+  - {fileID: 11400000, guid: dc2c445cfc1a71746b2bc2bf515e21bc, type: 2}
+  curWeapon: 0
+  rerollDuration: 2
+  slot1: {fileID: 927418943}
+  slot2: {fileID: 1130065484}
+  slot3: {fileID: 147324688}
+  centerOffset: {x: 0, y: 0.9, z: 0}
+  bullet: {fileID: 3403798650011718623, guid: e0ec4a2316a56f044a725ceeb5611580, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
