@@ -134,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
                     x_scale += (1 - x_scale) * 10f * Time.deltaTime;
                     y_scale += (1 - y_scale) * 10f * Time.deltaTime;
 
-                    fake_sprite.transform.localScale = new Vector2(x_scale*flip_scale*2, y_scale * 2);
+                    fake_sprite.transform.localScale = new Vector2(x_scale*flip_scale* 4.5f, y_scale * 4.5f);
 
                     // Dash init
                     if(!Input.GetKey(KeyCode.LeftShift))
@@ -172,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
 
                     dash_charge += 0.1f;
 
-                    fake_sprite.transform.localScale = new Vector2(x_scale * flip_scale * 2, y_scale * 2);
+                    fake_sprite.transform.localScale = new Vector2(x_scale * flip_scale * 4.5f, y_scale * 4.5f);
 
                     if (x_scale <= 0f)
                     {
@@ -209,7 +209,7 @@ public class PlayerMovement : MonoBehaviour
                     x_scale += (1 - x_scale) * 10f * Time.deltaTime;
                     y_scale += (1 - y_scale) * 10f * Time.deltaTime;
 
-                    fake_sprite.transform.localScale = new Vector2(x_scale * flip_scale * 2, y_scale * 2);
+                    fake_sprite.transform.localScale = new Vector2(x_scale * flip_scale * 4.5f, y_scale * 4.5f);
 
                     dash_charge -= 0.1f;
 
