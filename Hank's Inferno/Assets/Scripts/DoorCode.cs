@@ -61,6 +61,17 @@ public class DoorCode : MonoBehaviour
                 door_2.transform.position = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
             }
         }
+
+        if(GameObject.Find("Player").GetComponent<PlayerMovement>().state != "ELEVATOR OPEN" && GameObject.Find("Player").GetComponent<PlayerMovement>().state != "ELEVATOR")
+        {
+            door_1.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            door_2.GetComponent<SpriteRenderer>().sortingOrder = 0;
+        }
+        else
+        {
+            door_1.GetComponent<SpriteRenderer>().sortingOrder = 4;
+            door_2.GetComponent<SpriteRenderer>().sortingOrder = 4;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
