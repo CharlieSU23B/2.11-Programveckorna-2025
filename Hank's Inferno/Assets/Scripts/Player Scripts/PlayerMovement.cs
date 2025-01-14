@@ -192,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
             case ("DASH"):
                 {
                     // Rigidbody
-                    rb.velocity = new Vector2(h_speed,v_speed).normalized * 28f * dash_charge;
+                    rb.velocity = new Vector2(h_speed,v_speed*2f).normalized * 28f * dash_charge;
 
                     // Land
                     if (Physics2D.BoxCast(transform.position, box_mask, 0, -transform.up, box_distance, ground_layer) && rb.velocity.y < 0f)
