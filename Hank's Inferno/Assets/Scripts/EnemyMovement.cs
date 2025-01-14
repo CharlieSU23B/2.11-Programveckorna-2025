@@ -40,24 +40,26 @@ public class EnemyMovement : MonoBehaviour
             case ("FREE"):
                 {
                     // Wall Check
-                    if (Physics2D.BoxCast(transform.position + new Vector3(0, 0.5f, 0), new Vector2(0.05f, 0.4f), 0, -transform.right, 0.6f, ground_layer))
+                    if (Physics2D.BoxCast(transform.position + new Vector3(0, 0.5f, 0), new Vector2(0.05f, 0.4f), 0, -transform.right, 1.8f, ground_layer))
                     {
                         if (walk_dir == -1)
                         {
                             x_scale = 0.75f;
                             y_scale = 1.25f;
+                            fake_sprite.GetComponent<Animator>().Play("EnemyBasicSlide",0,0);
                             h_speed *= 2;
                         }
 
                         walk_dir = 1;
                     }
 
-                    if (Physics2D.BoxCast(transform.position + new Vector3(0, 0.5f, 0), new Vector2(0.05f, 0.4f), 0, transform.right, 0.6f, ground_layer))
+                    if (Physics2D.BoxCast(transform.position + new Vector3(0, 0.5f, 0), new Vector2(0.05f, 0.4f), 0, transform.right, 1.8f, ground_layer))
                     {
                         if (walk_dir == 1)
                         {
                             x_scale = 0.75f;
                             y_scale = 1.25f;
+                            fake_sprite.GetComponent<Animator>().Play("EnemyBasicSlide",0,0);
                             h_speed *= 2;
                         }
 
@@ -118,7 +120,7 @@ public class EnemyMovement : MonoBehaviour
                     x_scale += (1 - x_scale) * 10f * Time.deltaTime;
                     y_scale += (1 - y_scale) * 10f * Time.deltaTime;
 
-                    fake_sprite.transform.localScale = new Vector2(x_scale, y_scale);
+                    fake_sprite.transform.localScale = new Vector2(x_scale*walk_dir*-4, y_scale*4);
                 }
                 break;
         }
@@ -126,6 +128,8 @@ public class EnemyMovement : MonoBehaviour
         flash_sprite.color = new Color(1, 1, 1, flash);
         flash -= 0.1f;
         flash = Mathf.Clamp(flash, 0, 1);
+
+        flash_sprite.sprite = fake_sprite.GetComponent<SpriteRenderer>().sprite;
 
         if(hp <= 0)
         {
