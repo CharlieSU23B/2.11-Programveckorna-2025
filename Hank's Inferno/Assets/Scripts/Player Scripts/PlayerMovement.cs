@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     // Initializing variables
     public Rigidbody2D rb;
-    private float h_speed;
+    public float h_speed;
     private float max_speed = 8.5f;
     private bool grounded = false;
     private bool space_down = false;
@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask ground_layer;
     public float box_distance = 0;
     public Vector2 box_mask;
-    private float v_speed;
+    public float v_speed;
     private float x_scale = 0f;
     private float y_scale = 0f;
     public GameObject fake_sprite;
@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public float rooms = 10;
     public bool[] room_entered = new bool[10];
     public int room_i = 0;
-    private float flip_scale = 1;
+    public float flip_scale = 1;
     private float rooms_count = 0;
     public int enemies_to_kill = 0;
     // Start is called before the first frame update

@@ -67,9 +67,25 @@ public class GamblingGun : MonoBehaviour
 	    public float bulletOffset = 0f;
 	    public float recoil = 5f;*/
 
+        if(GameObject.Find("Player") != null)
+        {
+            float _h_recoil = (Camera.main.ScreenToWorldPoint(Input.mousePosition).x - GameObject.Find("Player").transform.position.x);
+
+            if (_h_recoil >= 0) _h_recoil = 1;
+            else _h_recoil = -1;
+
+            float _v_recoil = (Camera.main.ScreenToWorldPoint(Input.mousePosition).y - GameObject.Find("Player").transform.position.y);
+
+            if (_v_recoil >= 0) _v_recoil = 1;
+            else _v_recoil = -1;
+
+            GameObject.Find("Player").GetComponent<PlayerMovement>().h_speed += _h_recoil * -8f;
+            GameObject.Find("Player").GetComponent<PlayerMovement>().v_speed += _v_recoil * -4f;
+        }
+
         Quaternion rot = Quaternion.Euler(0, 0, (180 / Mathf.PI) * Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - (transform.position.y + centerOffset.y), Camera.main.ScreenToWorldPoint(Input.mousePosition).x - (transform.position.x + centerOffset.x)));
         //rot = Quaternion.EulerAngles(0, 0, rot.eulerAngles.z + Random.Range(-weapons[curWeapon].spread, weapons[curWeapon].spread));
-        GameObject b = Instantiate(bullet, transform.position + centerOffset, rot);
+        GameObject b = Instantiate(bullet, (transform.position + centerOffset) + transform.right * 2, rot);
         b.transform.localScale = new Vector3(weapons[curWeapon].size, weapons[curWeapon].size, 1);
 
         PlayerBullet bul = b.GetComponent<PlayerBullet>();
