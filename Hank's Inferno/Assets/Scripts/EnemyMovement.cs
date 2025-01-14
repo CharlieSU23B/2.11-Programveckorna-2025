@@ -40,7 +40,7 @@ public class EnemyMovement : MonoBehaviour
             case ("FREE"):
                 {
                     // Wall Check
-                    if (Physics2D.BoxCast(transform.position + new Vector3(0, 0.5f, 0), new Vector2(0.05f, 0.4f), 0, -transform.right, 1.8f, ground_layer))
+                    if (Physics2D.BoxCast(transform.position + new Vector3(0, 0.5f, 0), new Vector2(0.05f, 0.4f), 0, -transform.right, 1.4f, ground_layer))
                     {
                         if (walk_dir == -1)
                         {
@@ -53,7 +53,7 @@ public class EnemyMovement : MonoBehaviour
                         walk_dir = 1;
                     }
 
-                    if (Physics2D.BoxCast(transform.position + new Vector3(0, 0.5f, 0), new Vector2(0.05f, 0.4f), 0, transform.right, 1.8f, ground_layer))
+                    if (Physics2D.BoxCast(transform.position + new Vector3(0, 0.5f, 0), new Vector2(0.05f, 0.4f), 0, transform.right, 1.4f, ground_layer))
                     {
                         if (walk_dir == 1)
                         {
