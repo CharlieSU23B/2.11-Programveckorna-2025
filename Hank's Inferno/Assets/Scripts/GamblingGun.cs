@@ -17,6 +17,8 @@ public class GamblingGun : MonoBehaviour
 
     float rerollTime = 0f;
     float time = 0;
+    float slotTime1, slotTime2, slotTime3;
+    int nextNum;
 
     // Start is called before the first frame update
     void Start()
@@ -49,14 +51,57 @@ public class GamblingGun : MonoBehaviour
         }
 
         time -= 10f * Time.deltaTime;
+
+        if (slotTime1 > 0f)
+        {
+            slotTime1 = Mathf.Max(slotTime1 - Time.deltaTime * 3f, 0f);
+            if (slotTime1 < 1f)
+            {
+                slot1.transform.localScale = new Vector3(1f + slotTime1, 1f - (slotTime1 * 0.5f), 1f);
+                slot1.rectTransform.localPosition = new Vector3(slot1.rectTransform.localPosition.x, -16f * slotTime1, 0f);
+                slot1.text = nextNum.ToString();
+            }
+            else
+                slot1.text = Random.Range(0, weapons.Count).ToString();
+        }
+        if (slotTime2 > 0f)
+        {
+            slotTime2 = Mathf.Max(slotTime2 - Time.deltaTime * 3f, 0f);
+            if (slotTime2 < 1f)
+            {
+                slot2.transform.localScale = new Vector3(1f + slotTime2, 1f - (slotTime2 * 0.5f), 1f);
+                slot2.rectTransform.localPosition = new Vector3(slot2.rectTransform.localPosition.x, -16f * slotTime2, 0f);
+                slot2.text = nextNum.ToString();
+            }
+            else
+                slot2.text = Random.Range(0, weapons.Count).ToString();
+        }
+        if (slotTime3 > 0f)
+        {
+            slotTime3 = Mathf.Max(slotTime3 - Time.deltaTime * 3f, 0f);
+            if (slotTime3 < 1f)
+            {
+                slot3.transform.localScale = new Vector3(1f + slotTime3, 1f - (slotTime3 * 0.5f), 1f);
+                slot3.rectTransform.localPosition = new Vector3(slot3.rectTransform.localPosition.x, -16f * slotTime3, 0f);
+                slot3.text = nextNum.ToString();
+            }
+            else
+                slot3.text = Random.Range(0, weapons.Count).ToString();
+        }
     }
 
     public void Roll()
     {
         rerollTime = rerollDuration;
-        slot1.text = "";
-        slot2.text = "";
-        slot3.text = "";
+        /*slot1.text = "7";
+        slot2.text = "7";
+        slot3.text = "7";*/
+
+        slotTime1 = rerollDuration * 3f - 0.5f;
+        slotTime2 = rerollDuration * 3f + 0.25f;
+        slotTime3 = rerollDuration * 3f + 1f;
+
+        nextNum = Random.Range(0, weapons.Count);
     }
 
     public void Shoot()
