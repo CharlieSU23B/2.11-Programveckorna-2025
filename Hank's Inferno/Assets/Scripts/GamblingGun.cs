@@ -18,7 +18,7 @@ public class GamblingGun : MonoBehaviour
     float rerollTime = 0f;
     float time = 0;
     float slotTime1, slotTime2, slotTime3;
-    int nextNum;
+    int nextNum = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +43,7 @@ public class GamblingGun : MonoBehaviour
             rerollTime -= Time.deltaTime;
             if(rerollTime <= 0f)
             {
-                curWeapon = Random.Range(0, weapons.Count);
+                curWeapon = nextNum;
                 slot1.text = curWeapon.ToString();
                 slot2.text = curWeapon.ToString();
                 slot3.text = curWeapon.ToString();
@@ -52,10 +52,10 @@ public class GamblingGun : MonoBehaviour
 
         time -= 10f * Time.deltaTime;
 
-        if (slotTime1 > 0f)
+        if(slotTime1 > 0f)
         {
             slotTime1 = Mathf.Max(slotTime1 - Time.deltaTime * 3f, 0f);
-            if (slotTime1 < 1f)
+            if(slotTime1 < 1f)
             {
                 slot1.transform.localScale = new Vector3(1f + slotTime1, 1f - (slotTime1 * 0.5f), 1f);
                 slot1.rectTransform.localPosition = new Vector3(slot1.rectTransform.localPosition.x, -16f * slotTime1, 0f);
