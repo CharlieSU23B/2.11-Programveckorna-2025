@@ -7,7 +7,7 @@ public class PlayerBullet : MonoBehaviour
 {
     public float speed = 0f;
     public float drag = 1f;
-    public float lifetime = 60;
+    public float lifetime = 5;
     public float knockback = 4;
     public float damage = 1;
     public bool hitscan = false;
