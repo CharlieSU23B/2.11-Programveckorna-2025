@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float _choose = Random.Range(0, 100);
         int _current_i = 0;
+        _choose = 0;
 
         for (room_i = 0; room_i < rooms; room_i++)
         {

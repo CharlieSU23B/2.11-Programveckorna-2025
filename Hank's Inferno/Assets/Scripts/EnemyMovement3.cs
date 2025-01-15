@@ -119,7 +119,9 @@ public class EnemyMovement3 : MonoBehaviour
                         v_speed = Mathf.Clamp(v_speed, -5f, 5f);
                     }
 
-                     // Rigidbody
+                    h_speed = Mathf.Clamp(h_speed, -30, 30);
+
+                    // Rigidbody
                     rb.velocity = new Vector2(h_speed, v_speed);
 
                     // Squash and Stretch

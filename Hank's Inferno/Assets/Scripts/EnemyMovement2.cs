@@ -122,6 +122,8 @@ public class EnemyMovement2 : MonoBehaviour
                         }
                     }
 
+                    h_speed = Mathf.Clamp(h_speed, -30, 30);
+
                     // Rigidbody
                     rb.velocity = new Vector2(h_speed, v_speed);
 
