@@ -1915,6 +1915,8 @@ MonoBehaviour:
   transition: {fileID: 0}
   alpha: 1
   fade: 0
+  screen_flash: {fileID: 0}
+  flash_alpha: 0
 --- !u!81 &1565527047
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2411,8 +2413,8 @@ MonoBehaviour:
   curWeapon: 0
   rerollDuration: 2
   slot1: {fileID: 927418943}
-  slot2: {fileID: 1130065484}
-  slot3: {fileID: 147324688}
+  slot2: {fileID: 147324688}
+  slot3: {fileID: 1130065484}
   centerOffset: {x: 0, y: 0.9, z: 0}
   bullet: {fileID: 3403798650011718623, guid: e0ec4a2316a56f044a725ceeb5611580, type: 3}
 --- !u!1660057539 &9223372036854775807
