@@ -22,7 +22,7 @@ public class EnemyMovement : MonoBehaviour
     public GameObject player;
     private float bullet_timer = 0;
     public GameObject dust;
-    public float hp = 20;
+    public float hp = 70;
     public float flash = 0;
     public SpriteRenderer flash_sprite;
 
