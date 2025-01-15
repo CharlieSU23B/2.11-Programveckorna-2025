@@ -27,8 +27,6 @@ public class EnemyBulletCode : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, 0, angle*Mathf.Rad2Deg);
 
-        Debug.Log(transform.rotation);
-
         transform.localScale += (new Vector3(target_scale, target_scale, 1) - transform.localScale) * 10f * Time.deltaTime;
 
         range -= Time.deltaTime;

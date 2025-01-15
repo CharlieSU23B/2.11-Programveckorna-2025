@@ -24,6 +24,7 @@ public class EnemyMovement3 : MonoBehaviour
     private float bullet_timer = 0;
     public GameObject dust;
     public float hp = 35;
+    public GameObject explosion;
 
     public float flash = 0;
     public SpriteRenderer flash_sprite;
@@ -139,6 +140,12 @@ public class EnemyMovement3 : MonoBehaviour
 
         if (hp <= 0)
         {
+            for (int _i = 0; _i < 3; _i++)
+            {
+                GameObject _e = Instantiate(explosion, transform.position, Quaternion.identity);
+                _e.GetComponent<ExplosionCode>().create_times = Random.Range(3, 7);
+                _e.GetComponent<ExplosionCode>().dir = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0).normalized;
+            }
             GameObject.Find("Player").GetComponent<PlayerMovement>().enemies_to_kill--;
 
             Destroy(gameObject);
