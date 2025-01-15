@@ -8,6 +8,8 @@ public class DoorCode : MonoBehaviour
     // Initializing variables
     public GameObject door_1;
     public GameObject door_2;
+    public Vector3[] door_pos = new Vector3[99];
+    public Vector3[] door_pos_2 = new Vector3[99];
 
     // Start is called before the first frame update
 
@@ -71,6 +73,8 @@ public class DoorCode : MonoBehaviour
         {
             door_1.GetComponent<SpriteRenderer>().sortingOrder = 4;
             door_2.GetComponent<SpriteRenderer>().sortingOrder = 4;
+
+            transform.position += (door_pos_2[GameObject.Find("Player").GetComponent<PlayerMovement>().room_i] - transform.position) * 10f * Time.deltaTime;
         }
     }
 

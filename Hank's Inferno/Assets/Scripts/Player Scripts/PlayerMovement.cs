@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
                 transform.position = new Vector3(0, -room_i * 32, 0);
 
                 GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y = -room_i * 32;
-                GameObject.Find("Door").GetComponent<DoorCode>().transform.position = new Vector3(0, transform.position.y - 0.5f, 0);
+                GameObject.Find("Door").GetComponent<DoorCode>().transform.position = GameObject.Find("Door").GetComponent<DoorCode>().door_pos_2[room_i];
 
                 _current_i = room_i;
             }
@@ -285,6 +285,8 @@ public class PlayerMovement : MonoBehaviour
 
                                     room_entered[room_i] = true;
 
+                                    room_i = 10;
+
                                     transform.position = new Vector3(0, -320, 0);
 
                                     GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y = -320;
@@ -308,7 +310,7 @@ public class PlayerMovement : MonoBehaviour
 
             case ("ELEVATOR OPEN"):
                 {
-                    elevator.transform.position += (new Vector3(0, GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y - 2.5f, 0) - transform.position) * 10f * Time.deltaTime;
+                    elevator.transform.position += (elevator.GetComponent<DoorCode>().door_pos[room_i] - transform.position) * 10f * Time.deltaTime;
                     transform.position = elevator.transform.position + new Vector3(0, -2f, 0);
                     elevator_timer -= 10f * Time.deltaTime;
 
