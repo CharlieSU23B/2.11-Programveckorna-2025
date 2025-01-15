@@ -68,13 +68,13 @@ public class DoorCode : MonoBehaviour
         {
             door_1.GetComponent<SpriteRenderer>().sortingOrder = 0;
             door_2.GetComponent<SpriteRenderer>().sortingOrder = 0;
+
+            transform.position += (door_pos_2[GameObject.Find("Player").GetComponent<PlayerMovement>().room_i] - transform.position) * 2f * Time.deltaTime;
         }
         else
         {
             door_1.GetComponent<SpriteRenderer>().sortingOrder = 4;
             door_2.GetComponent<SpriteRenderer>().sortingOrder = 4;
-
-            transform.position += (door_pos_2[GameObject.Find("Player").GetComponent<PlayerMovement>().room_i] - transform.position) * 10f * Time.deltaTime;
         }
     }
 

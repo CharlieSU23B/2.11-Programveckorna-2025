@@ -7,15 +7,15 @@ public class EnemyMovement3 : MonoBehaviour
 {
     // Initializing variables
     public Rigidbody2D rb;
-    private float h_speed;
+    public float h_speed;
     private float max_speed = 8f;
     private bool grounded = false;
     public LayerMask ground_layer;
     public float box_distance = 0;
     public Vector2 box_mask;
-    private float v_speed;
-    private float x_scale = 0f;
-    private float y_scale = 0f;
+    public float v_speed;
+    public float x_scale = 0f;
+    public float y_scale = 0f;
     public GameObject fake_sprite;
     public string state = "FREE";
     private float walk_dir = 1;

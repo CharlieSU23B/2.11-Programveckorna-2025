@@ -50,18 +50,63 @@ public class PlayerBullet : MonoBehaviour
             {
                 collision.GetComponent<EnemyMovement>().hp -= damage;
                 collision.GetComponent<EnemyMovement>().flash = 1;
+
+                float _h_recoil = (collision.transform.position.x - transform.position.x);
+
+                if (_h_recoil >= 0) _h_recoil = 1;
+                else _h_recoil = -1;
+
+                float _v_recoil = (collision.transform.position.y - transform.position.y);
+
+                if (_v_recoil >= 0) _v_recoil = 1;
+                else _v_recoil = -1;
+
+                collision.GetComponent<EnemyMovement>().h_speed += _h_recoil * 30f;
+                collision.GetComponent<EnemyMovement>().v_speed += _v_recoil * -20f;
+                collision.GetComponent<EnemyMovement2>().x_scale = 0.5f;
+                collision.GetComponent<EnemyMovement2>().y_scale = 1.5f;
             }
 
             if (collision.GetComponent<EnemyMovement2>() != null)
             {
                 collision.GetComponent<EnemyMovement2>().hp -= damage;
                 collision.GetComponent<EnemyMovement2>().flash = 1;
+
+                float _h_recoil = (collision.transform.position.x - transform.position.x);
+
+                if (_h_recoil >= 0) _h_recoil = 1;
+                else _h_recoil = -1;
+
+                float _v_recoil = (collision.transform.position.y - transform.position.y);
+
+                if (_v_recoil >= 0) _v_recoil = 1;
+                else _v_recoil = -1;
+
+                collision.GetComponent<EnemyMovement2>().h_speed += _h_recoil * 30f;
+                collision.GetComponent<EnemyMovement2>().v_speed += _v_recoil * 20f;
+                collision.GetComponent<EnemyMovement2>().x_scale = 0.5f;
+                collision.GetComponent<EnemyMovement2>().y_scale = 1.5f;
             }
 
             if (collision.GetComponent<EnemyMovement3>() != null)
             {
                 collision.GetComponent<EnemyMovement3>().hp -= damage;
                 collision.GetComponent<EnemyMovement3>().flash = 1;
+
+                float _h_recoil = (collision.transform.position.x - transform.position.x);
+
+                if (_h_recoil >= 0) _h_recoil = 1;
+                else _h_recoil = -1;
+
+                float _v_recoil = (collision.transform.position.y - transform.position.y);
+
+                if (_v_recoil >= 0) _v_recoil = 1;
+                else _v_recoil = -1;
+
+                collision.GetComponent<EnemyMovement3>().h_speed += _h_recoil * 30f;
+                collision.GetComponent<EnemyMovement3>().v_speed += _v_recoil * -20f;
+                collision.GetComponent<EnemyMovement3>().x_scale = 0.5f;
+                collision.GetComponent<EnemyMovement3>().y_scale = 1.5f;
             }
 
             if (collision.GetComponent<BossMovement>() != null)
