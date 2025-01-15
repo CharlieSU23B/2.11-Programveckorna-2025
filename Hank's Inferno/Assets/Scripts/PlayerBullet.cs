@@ -14,12 +14,6 @@ public class PlayerBullet : MonoBehaviour
     public GameObject dust;
     public float target_scale = 0.5f;
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        Destroy(gameObject, lifetime); 
-    }
-
     private void Start()
     {
         transform.localScale = new Vector3(target_scale * 4, target_scale * 4, 1);
@@ -33,6 +27,12 @@ public class PlayerBullet : MonoBehaviour
         transform.localScale += (new Vector3(target_scale, target_scale, 1) - transform.localScale) * 10f * Time.deltaTime;
         transform.position += transform.right * speed * Time.fixedDeltaTime;
         speed = Mathf.Max(speed - drag * Time.fixedDeltaTime, 0f);
+
+        lifetime -= 10f * Time.deltaTime;
+        if (lifetime <= 0f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -63,8 +63,12 @@ public class PlayerBullet : MonoBehaviour
 
                 collision.GetComponent<EnemyMovement>().h_speed += _h_recoil * 30f;
                 collision.GetComponent<EnemyMovement>().v_speed += _v_recoil * -20f;
-                collision.GetComponent<EnemyMovement2>().x_scale = 0.5f;
-                collision.GetComponent<EnemyMovement2>().y_scale = 1.5f;
+                collision.GetComponent<EnemyMovement>().x_scale = 0.5f;
+                collision.GetComponent<EnemyMovement>().y_scale = 1.5f;
+
+                if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 4f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 4f;
+
+                Destroy(gameObject);
             }
 
             if (collision.GetComponent<EnemyMovement2>() != null)
@@ -83,9 +87,13 @@ public class PlayerBullet : MonoBehaviour
                 else _v_recoil = -1;
 
                 collision.GetComponent<EnemyMovement2>().h_speed += _h_recoil * 30f;
-                collision.GetComponent<EnemyMovement2>().v_speed += _v_recoil * 20f;
+                collision.GetComponent<EnemyMovement2>().v_speed += _v_recoil * -20f;
                 collision.GetComponent<EnemyMovement2>().x_scale = 0.5f;
                 collision.GetComponent<EnemyMovement2>().y_scale = 1.5f;
+
+                if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 4f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 4f;
+
+                Destroy(gameObject);
             }
 
             if (collision.GetComponent<EnemyMovement3>() != null)
@@ -107,17 +115,21 @@ public class PlayerBullet : MonoBehaviour
                 collision.GetComponent<EnemyMovement3>().v_speed += _v_recoil * -20f;
                 collision.GetComponent<EnemyMovement3>().x_scale = 0.5f;
                 collision.GetComponent<EnemyMovement3>().y_scale = 1.5f;
+
+                if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 4f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 4f;
+
+                Destroy(gameObject);
             }
 
             if (collision.GetComponent<BossMovement>() != null)
             {
                 collision.GetComponent<BossMovement>().hp -= damage;
                 collision.GetComponent<BossMovement>().flash = 1;
+
+                if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 4f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 4f;
+
+                Destroy(gameObject);
             }
-
-            if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 4f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 4f;
-
-            Destroy(gameObject);
         }
     }
 }

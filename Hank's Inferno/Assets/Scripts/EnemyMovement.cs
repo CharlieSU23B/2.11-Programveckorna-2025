@@ -25,6 +25,7 @@ public class EnemyMovement : MonoBehaviour
     public float hp = 70;
     public float flash = 0;
     public SpriteRenderer flash_sprite;
+    private bool shoot = false;
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +47,6 @@ public class EnemyMovement : MonoBehaviour
                         {
                             x_scale = 0.75f;
                             y_scale = 1.25f;
-                            fake_sprite.GetComponent<Animator>().Play("EnemyBasicSlide",0,0);
                             h_speed *= 2;
                         }
 
@@ -59,7 +59,6 @@ public class EnemyMovement : MonoBehaviour
                         {
                             x_scale = 0.75f;
                             y_scale = 1.25f;
-                            fake_sprite.GetComponent<Animator>().Play("EnemyBasicSlide",0,0);
                             h_speed *= 2;
                         }
 
@@ -78,12 +77,30 @@ public class EnemyMovement : MonoBehaviour
 
                     if(Vector3.Distance(transform.position,player.transform.position) < 10f && bullet_timer <= 0f)
                     {
+                        fake_sprite.GetComponent<Animator>().Play("EnemyBasicSlide", 0, 0);
+
+                        shoot = false;
+
+                        bullet_timer = 8f;
+                    }
+
+                    if(bullet_timer <= 7f && shoot == false)
+                    {
                         if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 1.25f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 1.25f;
 
                         GameObject _bullet = Instantiate(enemy_bullet, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
                         _bullet.GetComponent<EnemyBulletCode>().direction = player.transform.position - transform.position;
+                        _bullet.GetComponent<EnemyBulletCode>().angle = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x);
 
-                        bullet_timer = 8f;
+                        x_scale = 1.75f;
+                        y_scale = 0.25f;
+
+                        shoot = true;
+                    }
+
+                    if (bullet_timer <= 3f)
+                    {
+                        fake_sprite.GetComponent<Animator>().Play("EnemyBasicSlide", 0, 0);
                     }
 
                     bullet_timer -= 10f * Time.deltaTime;
@@ -112,6 +129,8 @@ public class EnemyMovement : MonoBehaviour
                         grounded = false;
                         v_speed -= 50f * Time.deltaTime;
                     }
+
+                    h_speed = Mathf.Clamp(h_speed, -30, 30);
 
                      // Rigidbody
                     rb.velocity = new Vector2(h_speed, v_speed);
