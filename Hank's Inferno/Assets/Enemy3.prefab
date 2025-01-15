@@ -189,6 +189,7 @@ MonoBehaviour:
   player: {fileID: 0}
   dust: {fileID: 7082710208605266354, guid: 8115ee8604a5f3b4b9046cdf53ea4b12, type: 3}
   hp: 35
+  explosion: {fileID: 7731488682449501899, guid: c88655d9a3a0d084db7236489741da01, type: 3}
   flash: 0
   flash_sprite: {fileID: 5945930078548952560}
 --- !u!1 &3518194088463414707

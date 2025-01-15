@@ -275,6 +275,7 @@ MonoBehaviour:
   hp: 70
   flash: 0
   flash_sprite: {fileID: 2455544276434489281}
+  explosion: {fileID: 7731488682449501899, guid: c88655d9a3a0d084db7236489741da01, type: 3}
 --- !u!1 &3518194088463414707
 GameObject:
   m_ObjectHideFlags: 0
