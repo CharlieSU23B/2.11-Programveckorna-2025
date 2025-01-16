@@ -10,6 +10,7 @@ public class EnemyBulletCode : MonoBehaviour
     public float target_scale = 0.25f;
     public string creator_string;
     public float b_speed = 12f;
+    public float angle;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,8 @@ public class EnemyBulletCode : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = new Vector2(direction.x, direction.y).normalized * b_speed;
+
+        transform.rotation = Quaternion.Euler(0, 0, angle*Mathf.Rad2Deg);
 
         transform.localScale += (new Vector3(target_scale, target_scale, 1) - transform.localScale) * 10f * Time.deltaTime;
 

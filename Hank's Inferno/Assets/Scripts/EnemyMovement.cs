@@ -22,13 +22,17 @@ public class EnemyMovement : MonoBehaviour
     public GameObject player;
     private float bullet_timer = 0;
     public GameObject dust;
-    public float hp = 20;
+    public float hp = 70;
     public float flash = 0;
     public SpriteRenderer flash_sprite;
+    private bool shoot = false;
+    public GameObject explosion;
 
     // Start is called before the first frame update
     void Start()
     {
+        hp = 70;
+
         player = GameObject.Find("Player");
     }
 
@@ -46,7 +50,6 @@ public class EnemyMovement : MonoBehaviour
                         {
                             x_scale = 0.75f;
                             y_scale = 1.25f;
-                            fake_sprite.GetComponent<Animator>().Play("EnemyBasicSlide",0,0);
                             h_speed *= 2;
                         }
 
@@ -59,7 +62,6 @@ public class EnemyMovement : MonoBehaviour
                         {
                             x_scale = 0.75f;
                             y_scale = 1.25f;
-                            fake_sprite.GetComponent<Animator>().Play("EnemyBasicSlide",0,0);
                             h_speed *= 2;
                         }
 
@@ -78,12 +80,30 @@ public class EnemyMovement : MonoBehaviour
 
                     if(Vector3.Distance(transform.position,player.transform.position) < 10f && bullet_timer <= 0f)
                     {
+                        fake_sprite.GetComponent<Animator>().Play("EnemyBasicSlide", 0, 0);
+
+                        shoot = false;
+
+                        bullet_timer = 8f;
+                    }
+
+                    if(bullet_timer <= 7f && shoot == false)
+                    {
                         if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 1.25f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 1.25f;
 
                         GameObject _bullet = Instantiate(enemy_bullet, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
                         _bullet.GetComponent<EnemyBulletCode>().direction = player.transform.position - transform.position;
+                        _bullet.GetComponent<EnemyBulletCode>().angle = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x);
 
-                        bullet_timer = 8f;
+                        x_scale = 1.75f;
+                        y_scale = 0.25f;
+
+                        shoot = true;
+                    }
+
+                    if (bullet_timer <= 3f)
+                    {
+                        fake_sprite.GetComponent<Animator>().Play("EnemyBasicSlide", 0, 0);
                     }
 
                     bullet_timer -= 10f * Time.deltaTime;
@@ -113,6 +133,8 @@ public class EnemyMovement : MonoBehaviour
                         v_speed -= 50f * Time.deltaTime;
                     }
 
+                    h_speed = Mathf.Clamp(h_speed, -30, 30);
+
                      // Rigidbody
                     rb.velocity = new Vector2(h_speed, v_speed);
 
@@ -133,7 +155,23 @@ public class EnemyMovement : MonoBehaviour
 
         if(hp <= 0)
         {
+            GameObject _e1 = Instantiate(explosion, transform.position, Quaternion.identity);
+            _e1.GetComponent<ExplosionCode>().timer = 0.25f;
+            _e1.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.1f);
+            _e1.GetComponent<ExplosionCode>().create_times = 0;
+            _e1.GetComponent<SpriteRenderer>().sortingOrder = 12;
+            _e1.GetComponent<ExplosionCode>().scale = 12f;
+            _e1.GetComponent<ExplosionCode>().un_timed = true;
+
+            for (int _i = 0; _i < 3; _i++)
+            {
+                GameObject _e = Instantiate(explosion, transform.position, Quaternion.identity);
+                _e.GetComponent<ExplosionCode>().create_times = Random.Range(3, 7);
+                _e.GetComponent<ExplosionCode>().dir = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0).normalized;
+                _e.GetComponent<ExplosionCode>().timer = Random.Range(-0.1f, 0.25f);
+            }
             GameObject.Find("Player").GetComponent<PlayerMovement>().enemies_to_kill--;
+            GameObject.Find("Player").GetComponent<PlayerMovement>().death_sound.Play();
             Destroy(gameObject);
         }
     }

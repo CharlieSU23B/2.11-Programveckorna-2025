@@ -43,6 +43,9 @@ public class BossMovement : MonoBehaviour
         health_bar = GameObject.Find("BossHealthFill");
         boss_health_bar = GameObject.Find("BossHealthBar");
         health_fill = health_bar.GetComponent<Image>();
+
+        hp = 1200;
+        max_hp = 1200;
     }
 
     // Update is called once per frame
@@ -55,7 +58,7 @@ public class BossMovement : MonoBehaviour
                     if(hp <= max_hp/2)
                     {
                         // Phase 2
-                        max_speed = 7.5f;
+                        max_speed = 5.5f;
                     }
                     else
                     {
@@ -173,7 +176,7 @@ public class BossMovement : MonoBehaviour
                     {
                         v_speed = 25f;
 
-                        if (hp <= max_hp / 2) v_speed = 18f;
+                        if (hp <= max_hp / 2) v_speed = 15f;
 
                         x_scale = 0.75f;
                         y_scale = 1.25f;
@@ -207,7 +210,7 @@ public class BossMovement : MonoBehaviour
         if (hp <= 0)
         {
             GameObject.Find("Player").GetComponent<PlayerMovement>().enemies_to_kill--;
-
+            GameObject.Find("Player").GetComponent<PlayerMovement>().death_sound.Play();
             Destroy(gameObject);
         }
     }

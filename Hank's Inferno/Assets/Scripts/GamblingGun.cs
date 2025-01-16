@@ -14,6 +14,7 @@ public class GamblingGun : MonoBehaviour
     [SerializeField] private TextMeshProUGUI slot1, slot2, slot3;
     [SerializeField] private Vector3 centerOffset;
     [SerializeField] private GameObject bullet;
+    public AudioSource sound;
 
     float rerollTime = 0f;
     float time = 0;
@@ -34,6 +35,8 @@ public class GamblingGun : MonoBehaviour
 
         if (Input.GetMouseButton(0) && time <= 0)
         {
+            sound.Play();
+
             Shoot();
             time = 2;
         }

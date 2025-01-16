@@ -27,7 +27,9 @@ public class CameraController : MonoBehaviour
         _y_max = Mathf.Clamp(_y_max, camera_y - 2f, camera_y + 2f);
 
         // Movement
-        transform.position += ((new Vector3(player.transform.position.x, _y_max, player.transform.position.z) + new Vector3(Random.Range(-screen_shake,screen_shake), Random.Range(-screen_shake, screen_shake), 0)) - transform.position) * 10f * Time.deltaTime;
+        float _screen_shake = screen_shake * 0.7f;
+
+        transform.position += ((new Vector3(player.transform.position.x, _y_max, player.transform.position.z) + new Vector3(Random.Range(-_screen_shake, _screen_shake), Random.Range(-_screen_shake, _screen_shake), 0)) - transform.position) * 10f * Time.deltaTime;
         transform.position = new Vector3(transform.position.x, transform.position.y, -10);
 
         // Screen Shake
