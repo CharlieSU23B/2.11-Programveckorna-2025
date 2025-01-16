@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class PlayerHealthCode : MonoBehaviour
 {
     // Initializing variables
-    public Image[] sprites = new Image[7];
-    public float[] scale = new float[7];
+    public Image[] sprites = new Image[5];
+    public float[] scale = new float[5];
     public int hp = 3;
     public int max_hp = 3;
     public Sprite sprite_1;
@@ -24,6 +24,7 @@ public class PlayerHealthCode : MonoBehaviour
     void FixedUpdate()
     {
         hp = Mathf.Clamp(hp, 0, max_hp);
+        max_hp = Mathf.Clamp(max_hp, 1, 5);
 
         for (var _i = 0; _i < sprites.Length; _i++)
         {
