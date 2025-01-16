@@ -45,7 +45,7 @@ public class PlayerHealthCode : MonoBehaviour
             else sprites[_i].enabled = true;
         }
 
-        if(hp <= 0)
+        if (hp <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

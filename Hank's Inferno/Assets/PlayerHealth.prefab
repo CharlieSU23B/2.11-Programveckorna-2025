@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1412363282447023135}
-  - component: {fileID: 4346148879476493028}
+  - component: {fileID: 7620282507481980937}
   m_Layer: 5
   m_Name: PlayerHealth
   m_TagString: Untagged
@@ -42,7 +42,7 @@ RectTransform:
   m_AnchoredPosition: {x: 120, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4346148879476493028
+--- !u!114 &7620282507481980937
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -60,11 +60,7 @@ MonoBehaviour:
   - {fileID: 6156634949338557692}
   - {fileID: 911989715108231891}
   - {fileID: 5901737200977081374}
-  - {fileID: 0}
-  - {fileID: 0}
   scale:
-  - 0
-  - 0
   - 0
   - 0
   - 0

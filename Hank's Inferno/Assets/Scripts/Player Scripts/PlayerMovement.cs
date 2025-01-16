@@ -74,11 +74,15 @@ public class PlayerMovement : MonoBehaviour
                     {
                         h_speed += ((max_speed * walk_dir) - h_speed) * 10f * Time.deltaTime;
 
+                        fake_sprite.GetComponent<Animator>().Play("PlayerRun",0);
+
                         flip_scale = walk_dir;
                     }
                     else
                     {
                         h_speed += (0 - h_speed) * 18f * Time.deltaTime;
+
+                        fake_sprite.GetComponent<Animator>().Play("PlayerIdle", 0,0);
                     }
 
                     // Ground check
@@ -107,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
                     else
                     {
                         grounded = false;
-                        v_speed -= 50f * Time.deltaTime;
+                        v_speed -= 70f * Time.deltaTime;
 
                         jump_buffer -= 10f * Time.deltaTime;
                     }
@@ -171,6 +175,8 @@ public class PlayerMovement : MonoBehaviour
 
             case ("DASH CHARGE"):
                 {
+                    fake_sprite.GetComponent<Animator>().Play("PlayerIdle", 0, 0);
+
                     // Rigidbody
                     rb.velocity = new Vector2(h_speed, v_speed);
 
@@ -198,6 +204,8 @@ public class PlayerMovement : MonoBehaviour
 
             case ("DASH"):
                 {
+                    fake_sprite.GetComponent<Animator>().Play("PlayerIdle", 0, 0);
+
                     // Rigidbody
                     rb.velocity = new Vector2(h_speed,v_speed*2f).normalized * 28f * dash_charge;
 
@@ -231,6 +239,8 @@ public class PlayerMovement : MonoBehaviour
 
             case ("ELEVATOR"):
                 {
+                    fake_sprite.GetComponent<Animator>().Play("PlayerIdle", 0, 0);
+
                     rb.velocity = new Vector2(0, 0);
                     h_speed = 0;
                     v_speed = 0;
@@ -319,6 +329,8 @@ public class PlayerMovement : MonoBehaviour
 
             case ("ELEVATOR OPEN"):
                 {
+                    fake_sprite.GetComponent<Animator>().Play("PlayerIdle", 0, 0);
+
                     elevator.transform.position += (elevator.GetComponent<DoorCode>().door_pos[room_i] - transform.position) * 10f * Time.deltaTime;
                     transform.position = elevator.transform.position + new Vector3(0, -2f, 0);
                     elevator_timer -= 10f * Time.deltaTime;

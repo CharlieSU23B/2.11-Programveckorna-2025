@@ -58,7 +58,7 @@ public class BossMovement : MonoBehaviour
                     if(hp <= max_hp/2)
                     {
                         // Phase 2
-                        max_speed = 7.5f;
+                        max_speed = 5.5f;
                     }
                     else
                     {
@@ -176,7 +176,7 @@ public class BossMovement : MonoBehaviour
                     {
                         v_speed = 25f;
 
-                        if (hp <= max_hp / 2) v_speed = 18f;
+                        if (hp <= max_hp / 2) v_speed = 22f;
 
                         x_scale = 0.75f;
                         y_scale = 1.25f;
