@@ -43,6 +43,9 @@ public class BossMovement : MonoBehaviour
         health_bar = GameObject.Find("BossHealthFill");
         boss_health_bar = GameObject.Find("BossHealthBar");
         health_fill = health_bar.GetComponent<Image>();
+
+        hp = 1200;
+        max_hp = 1200;
     }
 
     // Update is called once per frame
