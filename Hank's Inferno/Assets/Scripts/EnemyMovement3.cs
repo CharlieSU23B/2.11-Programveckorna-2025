@@ -32,6 +32,7 @@ public class EnemyMovement3 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        hp = 35;
         player = GameObject.Find("Player");
     }
 

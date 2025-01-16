@@ -28,19 +28,19 @@ public class ExplosionCode : MonoBehaviour
             if(create == false)
             {
                 GameObject _e = Instantiate(gameObject, transform.position + new Vector3(2*dir.x,2*dir.y,0), Quaternion.identity);
-                _e.GetComponent<ExplosionCode>().dir = new Vector3(dir.x + Random.Range(-0.8f,0.8f), dir.y + Random.Range(-0.8f, 0.8f),0).normalized;
+                _e.GetComponent<ExplosionCode>().dir = new Vector3(dir.x + Random.Range(-1.2f,1.2f), dir.y + Random.Range(-1.2f, 1.2f),0).normalized;
                 _e.GetComponent<ExplosionCode>().create_times = create_times-1;
 
                 create = true;
             }
 
-            transform.localScale -= new Vector3(10, 10, 10) * Time.deltaTime;
+            transform.localScale -= new Vector3(15, 15, 15) * Time.deltaTime;
 
             if (transform.localScale.x <= 0) Destroy(gameObject);
         }
         else
         {
-            transform.localScale += (new Vector3(4f, 4f, 4f) - transform.localScale) * 10f * Time.deltaTime;
+            transform.localScale += (new Vector3(4f, 4f, 4f) - transform.localScale) * 15f * Time.deltaTime;
         }
 
         timer -= Time.deltaTime;

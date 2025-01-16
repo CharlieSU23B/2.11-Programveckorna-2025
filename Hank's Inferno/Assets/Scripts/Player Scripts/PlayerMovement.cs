@@ -32,6 +32,11 @@ public class PlayerMovement : MonoBehaviour
     public float flip_scale = 1;
     private float rooms_count = 0;
     public int enemies_to_kill = 0;
+    private float iframes = 0;
+    public GameObject explosion;
+    public SpriteRenderer flash_1;
+    public SpriteRenderer flash_2;
+    public float flash = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -182,6 +187,8 @@ public class PlayerMovement : MonoBehaviour
                         h_speed = Input.GetAxisRaw("Horizontal");
                         v_speed = Input.GetAxisRaw("Vertical");
 
+                        iframes = 2f;
+
                         if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 2f * dash_charge) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 2f*dash_charge;
 
                         state = "DASH";
@@ -204,6 +211,8 @@ public class PlayerMovement : MonoBehaviour
                         dash_charge = 2.25f;
                         dash = true;
                         Instantiate(dust, transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
+
+                        iframes = 1.25f;
 
                         if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 2f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 2f;
                     }
@@ -320,6 +329,63 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
                 break;
+        }
+
+        flash_1.color = new Color(1, 1, 1, flash);
+        flash_2.color = new Color(1, 1, 1, flash);
+        flash -= 0.1f;
+        flash = Mathf.Clamp(flash, 0, 1);
+
+        flash_1.sprite = fake_sprite.GetComponent<SpriteRenderer>().sprite;
+        flash_2.sprite = fake_sprite.GetComponent<SpriteRenderer>().sprite;
+
+        iframes -= 10f * Time.deltaTime;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy")
+        {
+            if(iframes <= 0f)
+            {
+                if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 8f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 8f;
+                if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().scale[GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp-1] = 0;
+                if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp--;
+
+                for (int _i = 0; _i < 3; _i++)
+                {
+                    GameObject _e = Instantiate(explosion, transform.position, Quaternion.identity);
+                    _e.GetComponent<ExplosionCode>().create_times = Random.Range(3, 7);
+                    _e.GetComponent<ExplosionCode>().dir = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0).normalized;
+                }
+
+                flash = 1;
+
+                iframes = 6f;
+            }
+        }
+
+        if (collision.tag == "EnemyBullet")
+        {
+            if (iframes <= 0f)
+            {
+                if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 8f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 8f;
+                if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().scale[GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp-1] = 0;
+                if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp--;
+
+                for (int _i = 0; _i < 3; _i++)
+                {
+                    GameObject _e = Instantiate(explosion, transform.position, Quaternion.identity);
+                    _e.GetComponent<ExplosionCode>().create_times = Random.Range(3, 7);
+                    _e.GetComponent<ExplosionCode>().dir = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0).normalized;
+                }
+
+                flash = 1;
+
+                Destroy(collision.gameObject);
+
+                iframes = 6f;
+            }
         }
     }
 }
