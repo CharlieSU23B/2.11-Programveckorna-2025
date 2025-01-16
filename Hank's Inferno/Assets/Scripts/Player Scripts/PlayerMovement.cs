@@ -37,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer flash_1;
     public SpriteRenderer flash_2;
     public float flash = 0f;
+    private bool fall = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,15 +76,11 @@ public class PlayerMovement : MonoBehaviour
                     {
                         h_speed += ((max_speed * walk_dir) - h_speed) * 10f * Time.deltaTime;
 
-                        fake_sprite.GetComponent<Animator>().Play("PlayerRun",0);
-
                         flip_scale = walk_dir;
                     }
                     else
                     {
                         h_speed += (0 - h_speed) * 18f * Time.deltaTime;
-
-                        fake_sprite.GetComponent<Animator>().Play("PlayerIdle", 0,0);
                     }
 
                     // Ground check
@@ -129,6 +127,10 @@ public class PlayerMovement : MonoBehaviour
 
                     if (jump_buffer > 0 && Input.GetKey(KeyCode.Space) && space_down == false)
                     {
+                        fake_sprite.GetComponent<Animator>().Play("PlayerJump");
+
+                        fall = false;
+
                         v_speed = 25;
 
                         x_scale = 0.5f;
@@ -137,6 +139,31 @@ public class PlayerMovement : MonoBehaviour
                         space_down = true;
 
                         jump_buffer = 0;
+                    }
+
+                    if(v_speed <= 0)
+                    {
+                        if (fall == false)
+                        {
+                            fake_sprite.GetComponent<Animator>().Play("PlayerFall");
+
+                            x_scale = 0.75f;
+                            y_scale = 1.25f;
+
+                            fall = true;
+                        }
+                    }
+
+                    if(grounded)
+                    {
+                        if(walk_dir != 0)
+                        {
+                            fake_sprite.GetComponent<Animator>().Play("PlayerRun");
+                        }
+                        else
+                        {
+                            fake_sprite.GetComponent<Animator>().Play("PlayerIdle");
+                        }
                     }
 
                     // Rigidbody
