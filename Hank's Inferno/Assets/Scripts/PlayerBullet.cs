@@ -68,6 +68,8 @@ public class PlayerBullet : MonoBehaviour
 
                 if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 4f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 4f;
 
+                GameObject.Find("Player").GetComponent<PlayerMovement>().healing += 0.0025f*damage;
+
                 Destroy(gameObject);
             }
 
@@ -92,6 +94,8 @@ public class PlayerBullet : MonoBehaviour
                 collision.GetComponent<EnemyMovement2>().y_scale = 1.5f;
 
                 if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 4f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 4f;
+
+                GameObject.Find("Player").GetComponent<PlayerMovement>().healing += 0.0025f * damage;
 
                 Destroy(gameObject);
             }
@@ -118,6 +122,8 @@ public class PlayerBullet : MonoBehaviour
 
                 if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 4f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 4f;
 
+                GameObject.Find("Player").GetComponent<PlayerMovement>().healing += 0.0025f * damage;
+
                 Destroy(gameObject);
             }
 
@@ -127,6 +133,8 @@ public class PlayerBullet : MonoBehaviour
                 collision.GetComponent<BossMovement>().flash = 1;
 
                 if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 4f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 4f;
+
+                GameObject.Find("Player").GetComponent<PlayerMovement>().healing += 0.0025f * damage;
 
                 Destroy(gameObject);
             }
