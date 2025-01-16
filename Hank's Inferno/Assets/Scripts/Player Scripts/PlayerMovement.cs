@@ -245,7 +245,7 @@ public class PlayerMovement : MonoBehaviour
 
                         dash_sound.Play();
 
-                        iframes = 2f;
+                        iframes = 2.25f;
 
                         if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 2f * dash_charge) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 2f*dash_charge;
 
@@ -274,7 +274,7 @@ public class PlayerMovement : MonoBehaviour
 
                         dash_sound.Play();
 
-                        iframes = 1.25f;
+                        iframes = 1.5f;
 
                         if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 2f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 2f;
                     }
