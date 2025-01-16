@@ -176,7 +176,7 @@ public class BossMovement : MonoBehaviour
                     {
                         v_speed = 25f;
 
-                        if (hp <= max_hp / 2) v_speed = 22f;
+                        if (hp <= max_hp / 2) v_speed = 15f;
 
                         x_scale = 0.75f;
                         y_scale = 1.25f;
@@ -210,7 +210,7 @@ public class BossMovement : MonoBehaviour
         if (hp <= 0)
         {
             GameObject.Find("Player").GetComponent<PlayerMovement>().enemies_to_kill--;
-
+            GameObject.Find("Player").GetComponent<PlayerMovement>().death_sound.Play();
             Destroy(gameObject);
         }
     }

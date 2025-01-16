@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -40,6 +41,14 @@ public class PlayerMovement : MonoBehaviour
     private bool fall = false;
     public float healing = 1;
     public float healing_draw = 0;
+    public AudioSource jump_sound;
+    public AudioSource land_sound;
+    public AudioSource step_sound;
+    public AudioSource dash_sound;
+    public AudioSource hurt_sound;
+    public AudioSource death_sound;
+    public AudioSource elevator_sound;
+    public AudioSource heal_sound;
 
     // Start is called before the first frame update
     void Start()
@@ -101,6 +110,8 @@ public class PlayerMovement : MonoBehaviour
 
                             x_scale = 1.5f;
                             y_scale = 0.5f;
+
+                            land_sound.Play();
                         }
 
                         dash = true;
@@ -143,6 +154,8 @@ public class PlayerMovement : MonoBehaviour
                         space_down = true;
 
                         jump_buffer = 0;
+
+                        jump_sound.Play();
                     }
 
                     if(v_speed <= 0)
@@ -163,6 +176,12 @@ public class PlayerMovement : MonoBehaviour
                         if(walk_dir != 0)
                         {
                             fake_sprite.GetComponent<Animator>().Play("PlayerRun");
+
+                            if(fake_sprite.GetComponent<SpriteRenderer>().sprite.name == "Hank_run-Sheet_1"
+                                || fake_sprite.GetComponent<SpriteRenderer>().sprite.name == "Hank_run-Sheet_4")
+                            {
+                                step_sound.Play();
+                            }
                         }
                         else
                         {
@@ -224,6 +243,8 @@ public class PlayerMovement : MonoBehaviour
                         h_speed = Input.GetAxisRaw("Horizontal");
                         v_speed = Input.GetAxisRaw("Vertical");
 
+                        dash_sound.Play();
+
                         iframes = 2f;
 
                         if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 2f * dash_charge) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 2f*dash_charge;
@@ -250,6 +271,8 @@ public class PlayerMovement : MonoBehaviour
                         dash_charge = 2.25f;
                         dash = true;
                         Instantiate(dust, transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
+
+                        dash_sound.Play();
 
                         iframes = 1.25f;
 
@@ -376,11 +399,14 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetKey(KeyCode.F))
         {
-            healing_draw += (0 - healing_draw) * 10f * Time.deltaTime;
+            healing_draw += (0 - healing_draw) * 2.5f * Time.deltaTime;
 
-            if(healing_draw <= 0.025f && healing >= 1)
+            if(healing_draw <= 0.01f && healing >= 1)
             {
                 healing = 0;
+                healing_draw = 0;
+
+                heal_sound.Play();
 
                 if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 8f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 8f;
                 if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp++;
@@ -393,6 +419,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         healing = Mathf.Clamp(healing, 0, 1);
+        healing_draw = Mathf.Clamp(healing_draw, 0, 1);
 
         flash_1.color = new Color(1, 1, 1, flash);
         flash_2.color = new Color(1, 1, 1, flash);
@@ -415,15 +442,24 @@ public class PlayerMovement : MonoBehaviour
                 if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().scale[GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp-1] = 0;
                 if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp--;
 
+                GameObject _e1 = Instantiate(explosion, transform.position, Quaternion.identity);
+                _e1.GetComponent<ExplosionCode>().timer = 0.25f;
+                _e1.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.1f);
+                _e1.GetComponent<ExplosionCode>().create_times = 0;
+                _e1.GetComponent<SpriteRenderer>().sortingOrder = 12;
+                _e1.GetComponent<ExplosionCode>().scale = 12f;
+                _e1.GetComponent<ExplosionCode>().un_timed = true;
+
                 for (int _i = 0; _i < 3; _i++)
                 {
                     GameObject _e = Instantiate(explosion, transform.position, Quaternion.identity);
                     _e.GetComponent<ExplosionCode>().create_times = Random.Range(3, 7);
                     _e.GetComponent<ExplosionCode>().dir = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0).normalized;
+                    _e.GetComponent<ExplosionCode>().timer = Random.Range(0.1f, 0.25f);
                 }
 
                 flash = 1;
-
+                death_sound.Play();
                 iframes = 6f;
             }
         }
@@ -436,15 +472,24 @@ public class PlayerMovement : MonoBehaviour
                 if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().scale[GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp-1] = 0;
                 if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp--;
 
+                GameObject _e1 = Instantiate(explosion, transform.position, Quaternion.identity);
+                _e1.GetComponent<ExplosionCode>().timer = 0.25f;
+                _e1.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.1f);
+                _e1.GetComponent<ExplosionCode>().create_times = 0;
+                _e1.GetComponent<SpriteRenderer>().sortingOrder = 12;
+                _e1.GetComponent<ExplosionCode>().scale = 12f;
+                _e1.GetComponent<ExplosionCode>().un_timed = true;
+
                 for (int _i = 0; _i < 3; _i++)
                 {
                     GameObject _e = Instantiate(explosion, transform.position, Quaternion.identity);
                     _e.GetComponent<ExplosionCode>().create_times = Random.Range(3, 7);
                     _e.GetComponent<ExplosionCode>().dir = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0).normalized;
+                    _e.GetComponent<ExplosionCode>().timer = Random.Range(-0.1f, 0.25f);
                 }
 
                 flash = 1;
-
+                death_sound.Play();
                 Destroy(collision.gameObject);
 
                 iframes = 6f;

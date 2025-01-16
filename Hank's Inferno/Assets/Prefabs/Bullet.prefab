@@ -108,6 +108,8 @@ MonoBehaviour:
   hitscan: 0
   dust: {fileID: 7827948964007492516, guid: 9503c01ee8db7324abb5f6f696fc50cc, type: 3}
   target_scale: 0.5
+  sound: {fileID: 0}
+  hurt_sound: {fileID: 0}
 --- !u!58 &9051501250505080395
 CircleCollider2D:
   m_ObjectHideFlags: 0
