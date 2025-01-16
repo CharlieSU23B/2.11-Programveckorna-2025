@@ -38,10 +38,14 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer flash_2;
     public float flash = 0f;
     private bool fall = false;
+    public float healing = 1;
+    public float healing_draw = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        healing = 1;
+
         float _choose = Random.Range(0, 100);
         int _current_i = 0;
 
@@ -369,6 +373,26 @@ public class PlayerMovement : MonoBehaviour
                 }
                 break;
         }
+
+        if(Input.GetKey(KeyCode.F))
+        {
+            healing_draw += (0 - healing_draw) * 10f * Time.deltaTime;
+
+            if(healing_draw <= 0.025f && healing >= 1)
+            {
+                healing = 0;
+
+                if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 8f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 8f;
+                if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp++;
+                if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().scale[GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp-1] = 0;
+            }
+        }
+        else
+        {
+            healing_draw += (healing - healing_draw) * 10f * Time.deltaTime;
+        }
+
+        healing = Mathf.Clamp(healing, 0, 1);
 
         flash_1.color = new Color(1, 1, 1, flash);
         flash_2.color = new Color(1, 1, 1, flash);
