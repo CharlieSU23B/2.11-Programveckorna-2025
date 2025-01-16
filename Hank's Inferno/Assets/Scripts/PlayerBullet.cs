@@ -7,7 +7,7 @@ public class PlayerBullet : MonoBehaviour
 {
     public float speed = 0f;
     public float drag = 1f;
-    public float lifetime = 5;
+    public float lifetime = 1;
     public float knockback = 4;
     public float damage = 1;
     public bool hitscan = false;
@@ -17,7 +17,6 @@ public class PlayerBullet : MonoBehaviour
     private void Start()
     {
         transform.localScale = new Vector3(target_scale * 4, target_scale * 4, 1);
-
         if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 1f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 1f;
     }
 
@@ -50,7 +49,7 @@ public class PlayerBullet : MonoBehaviour
             {
                 collision.GetComponent<EnemyMovement>().hp -= damage;
                 collision.GetComponent<EnemyMovement>().flash = 1;
-
+                GameObject.Find("Player").GetComponent<PlayerMovement>().hurt_sound.Play();
                 float _h_recoil = (collision.transform.position.x - transform.position.x);
 
                 if (_h_recoil >= 0) _h_recoil = 1;
@@ -77,7 +76,7 @@ public class PlayerBullet : MonoBehaviour
             {
                 collision.GetComponent<EnemyMovement2>().hp -= damage;
                 collision.GetComponent<EnemyMovement2>().flash = 1;
-
+                GameObject.Find("Player").GetComponent<PlayerMovement>().hurt_sound.Play();
                 float _h_recoil = (collision.transform.position.x - transform.position.x);
 
                 if (_h_recoil >= 0) _h_recoil = 1;
@@ -104,7 +103,7 @@ public class PlayerBullet : MonoBehaviour
             {
                 collision.GetComponent<EnemyMovement3>().hp -= damage;
                 collision.GetComponent<EnemyMovement3>().flash = 1;
-
+                GameObject.Find("Player").GetComponent<PlayerMovement>().hurt_sound.Play();
                 float _h_recoil = (collision.transform.position.x - transform.position.x);
 
                 if (_h_recoil >= 0) _h_recoil = 1;
@@ -128,10 +127,10 @@ public class PlayerBullet : MonoBehaviour
             }
 
             if (collision.GetComponent<BossMovement>() != null)
-            {
+            { 
                 collision.GetComponent<BossMovement>().hp -= damage;
                 collision.GetComponent<BossMovement>().flash = 1;
-
+                GameObject.Find("Player").GetComponent<PlayerMovement>().hurt_sound.Play();
                 if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 4f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 4f;
 
                 GameObject.Find("Player").GetComponent<PlayerMovement>().healing += 0.0025f * damage;

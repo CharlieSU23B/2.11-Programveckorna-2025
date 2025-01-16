@@ -10,6 +10,7 @@ public class DoorCode : MonoBehaviour
     public GameObject door_2;
     public Vector3[] door_pos = new Vector3[99];
     public Vector3[] door_pos_2 = new Vector3[99];
+    private bool open = false;
 
     // Start is called before the first frame update
 
@@ -48,6 +49,12 @@ public class DoorCode : MonoBehaviour
             {
                 if (GameObject.Find("Player").GetComponent<PlayerMovement>().elevator_timer <= 10)
                 {
+                    if(open == false)
+                    {
+                        GameObject.Find("Player").GetComponent<PlayerMovement>().elevator_sound.Play();
+                        open = true;
+                    }
+
                     door_1.transform.position += (new Vector3(transform.position.x + 2f, transform.position.y, transform.position.z) - door_1.transform.position) * 10f * Time.deltaTime;
                     door_2.transform.position += (new Vector3(transform.position.x - 2f, transform.position.y, transform.position.z) - door_2.transform.position) * 10f * Time.deltaTime;
                 }
@@ -69,6 +76,8 @@ public class DoorCode : MonoBehaviour
             door_1.GetComponent<SpriteRenderer>().sortingOrder = 0;
             door_2.GetComponent<SpriteRenderer>().sortingOrder = 0;
 
+            open = false;
+
             transform.position += (door_pos_2[GameObject.Find("Player").GetComponent<PlayerMovement>().room_i] - transform.position) * 2f * Time.deltaTime;
         }
         else
@@ -84,6 +93,7 @@ public class DoorCode : MonoBehaviour
         {
             if(Input.GetKey(KeyCode.E) && collision.GetComponent<PlayerMovement>().state == "FREE" && collision.GetComponent<PlayerMovement>().enemies_to_kill <= 0)
             {
+                GameObject.Find("Player").GetComponent<PlayerMovement>().elevator_sound.Play();
                 collision.GetComponent<PlayerMovement>().state = "ELEVATOR";
                 collision.GetComponent<PlayerMovement>().elevator = gameObject;
                 collision.GetComponent<PlayerMovement>().elevator_timer = 18f;
