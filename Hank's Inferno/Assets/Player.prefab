@@ -293,6 +293,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
   - {fileID: 11400000, guid: f4f5ddceb94dd1442806a45cf1994062, type: 2}
+  - {fileID: 11400000, guid: dc2c445cfc1a71746b2bc2bf515e21bc, type: 2}
+  - {fileID: 11400000, guid: 0623d419c60aed841822512d8e0f9d1d, type: 2}
   curWeapon: 0
   rerollDuration: 3
   slot1: {fileID: 0}

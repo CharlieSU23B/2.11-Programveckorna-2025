@@ -21,6 +21,9 @@ public class GamblingGun : MonoBehaviour
     float slotTime1, slotTime2, slotTime3;
     int nextNum = 0;
 
+    int queuedBullets = 0;
+    float queuedBulletsTimer = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,15 +33,24 @@ public class GamblingGun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(queuedBulletsTimer);
+
         if (Input.GetKeyDown(KeyCode.Q))
             Roll();
 
-        if (Input.GetMouseButton(0) && time <= 0)
+        queuedBulletsTimer -= Time.deltaTime;
+        if(queuedBulletsTimer <= 0f)
         {
-            sound.Play();
+            if (Input.GetMouseButton(0) && queuedBullets <= 0)
+            {
+                sound.Play();
 
-            Shoot();
-            time = 2;
+                Shoot();
+            }
+            else if(queuedBullets > 0)
+            {
+                FireBullet();
+            }
         }
 
         if(rerollTime > 0f)
@@ -112,10 +124,29 @@ public class GamblingGun : MonoBehaviour
         /*public int magSize = 15;
 	    public float reload = 8f;
 	    public int bulletAmount = 1;
-	    public float bulletOffset = 0f;
-	    public float recoil = 5f;*/
+	    public float bulletOffset = 0f;*/
 
-        if(GameObject.Find("Player") != null)
+        queuedBullets = weapons[curWeapon].bulletAmount;
+        if(weapons[curWeapon].bulletOffset <= 0f)
+        {
+            for(int i = 0; i < queuedBullets; i++)
+            {
+                FireBullet();
+            }
+        }
+        else
+            FireBullet();
+    }
+
+    void FireBullet()
+    {
+        queuedBullets--;
+        if(queuedBullets > 0)
+            queuedBulletsTimer = weapons[curWeapon].bulletOffset;
+        else
+            queuedBulletsTimer = weapons[curWeapon].reload;
+
+        if (GameObject.Find("Player") != null)
         {
             float _h_recoil = (Camera.main.ScreenToWorldPoint(Input.mousePosition).x - GameObject.Find("Player").transform.position.x);
 
@@ -127,8 +158,8 @@ public class GamblingGun : MonoBehaviour
             if (_v_recoil >= 0) _v_recoil = 1;
             else _v_recoil = -1;
 
-            GameObject.Find("Player").GetComponent<PlayerMovement>().h_speed += _h_recoil * -8f;
-            GameObject.Find("Player").GetComponent<PlayerMovement>().v_speed += _v_recoil * -4f;
+            GameObject.Find("Player").GetComponent<PlayerMovement>().h_speed += _h_recoil * -2f * weapons[curWeapon].recoil;
+            GameObject.Find("Player").GetComponent<PlayerMovement>().v_speed += _v_recoil * -1f * weapons[curWeapon].recoil;
         }
 
         Quaternion rot = Quaternion.Euler(0, 0, (180 / Mathf.PI) * Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - (transform.position.y + centerOffset.y), Camera.main.ScreenToWorldPoint(Input.mousePosition).x - (transform.position.x + centerOffset.x)));
@@ -143,5 +174,6 @@ public class GamblingGun : MonoBehaviour
         bul.knockback = weapons[curWeapon].knockback;
         bul.damage = weapons[curWeapon].damage;
         bul.hitscan = weapons[curWeapon].hitscan;
+        bul.target_scale = weapons[curWeapon].size;
     }
 }
