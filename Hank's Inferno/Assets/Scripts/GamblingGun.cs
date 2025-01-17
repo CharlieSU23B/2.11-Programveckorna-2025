@@ -15,6 +15,10 @@ public class GamblingGun : MonoBehaviour
     [SerializeField] private Vector3 centerOffset;
     [SerializeField] private GameObject bullet;
     public AudioSource sound;
+    public AudioSource start_sound;
+    public AudioSource roll_sound;
+    public AudioSource end_sound;
+    private bool roll_audio = false;
 
     float rerollTime = 0f;
     float time = 0;
@@ -34,7 +38,11 @@ public class GamblingGun : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
+        {
+            roll_audio = false;
             Roll();
+            start_sound.Play();
+        }
 
         queuedBulletsTimer -= Time.deltaTime;
         if(queuedBulletsTimer <= 0f)
@@ -53,9 +61,17 @@ public class GamblingGun : MonoBehaviour
 
         if(rerollTime > 0f)
         {
+            if(rerollTime <= 2.35f && roll_audio == false)
+            {
+                roll_sound.Play();
+                roll_audio = true;
+            }
+
             rerollTime -= Time.deltaTime;
             if(rerollTime <= 0f)
             {
+                end_sound.Play();
+
                 curWeapon = nextNum;
                 slot1.text = curWeapon.ToString();
                 slot2.text = curWeapon.ToString();
