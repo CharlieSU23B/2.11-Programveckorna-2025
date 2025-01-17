@@ -25,6 +25,7 @@ public class EnemyMovement3 : MonoBehaviour
     public GameObject dust;
     public float hp = 35;
     public GameObject explosion;
+    private float flip_scale = 0;
 
     public float flash = 0;
     public SpriteRenderer flash_sprite;
@@ -57,6 +58,8 @@ public class EnemyMovement3 : MonoBehaviour
                     // Walking code
                     if (walk_dir != 0)
                     {
+                        flip_scale = walk_dir;
+
                         h_speed += ((max_speed * walk_dir) - h_speed) * 2f * Time.deltaTime;
                     }
                     else
@@ -130,7 +133,7 @@ public class EnemyMovement3 : MonoBehaviour
                     x_scale += (1 - x_scale) * 10f * Time.deltaTime;
                     y_scale += (1 - y_scale) * 10f * Time.deltaTime;
 
-                    fake_sprite.transform.localScale = new Vector2(x_scale, y_scale);
+                    fake_sprite.transform.localScale = new Vector2(x_scale*6*-flip_scale, y_scale*6);
                 }
                 break;
         }
@@ -138,6 +141,8 @@ public class EnemyMovement3 : MonoBehaviour
         flash_sprite.color = new Color(1, 1, 1, flash);
         flash -= 0.1f;
         flash = Mathf.Clamp(flash, 0, 1);
+
+        flash_sprite.sprite = fake_sprite.GetComponent<SpriteRenderer>().sprite;
 
         if (hp <= 0)
         {

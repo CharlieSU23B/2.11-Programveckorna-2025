@@ -159,8 +159,20 @@ PrefabInstance:
       value: LightSource
       objectReference: {fileID: 0}
     - target: {fileID: 8923560311729358734, guid: d91190335bf669c45adbe5f65c68af96, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923560311729358734, guid: d91190335bf669c45adbe5f65c68af96, type: 3}
+      propertyPath: m_Color.g
+      value: 0.1571696
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923560311729358734, guid: d91190335bf669c45adbe5f65c68af96, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923560311729358734, guid: d91190335bf669c45adbe5f65c68af96, type: 3}
       propertyPath: m_Intensity
-      value: 0.25
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
