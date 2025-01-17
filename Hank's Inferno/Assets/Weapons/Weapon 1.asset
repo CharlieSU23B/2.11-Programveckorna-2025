@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Weapon 1
   m_EditorClassIdentifier: 
   name: Yas
-  damage: 10
+  damage: 15
   speed: 28
   hitscan: 0
   spread: 3
   speedVariation: 0
   magSize: 15
-  reload: 8
+  reload: 0.2
   bulletAmount: 1
   bulletOffset: 0
   drag: 1
   lifetime: 60
-  size: 0.5
+  size: 0.7
   recoil: 5
   knockback: 7

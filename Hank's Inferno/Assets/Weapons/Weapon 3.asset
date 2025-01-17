@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 743a8990bc17cef439f7c1da092a47fc, type: 3}
-  m_Name: Weapon 2
+  m_Name: Weapon 3
   m_EditorClassIdentifier: 
-  name: Si
-  damage: 10
-  speed: 48
+  name: Weapon
+  damage: 7
+  speed: 32
   hitscan: 0
   spread: 3
   speedVariation: 0
   magSize: 15
-  reload: 0.1
-  bulletAmount: 1
-  bulletOffset: 0
+  reload: 0.2
+  bulletAmount: 3
+  bulletOffset: 0.05
   drag: 1
   lifetime: 60
-  size: 0.4
+  size: 0.6
   recoil: 5
   knockback: 7
