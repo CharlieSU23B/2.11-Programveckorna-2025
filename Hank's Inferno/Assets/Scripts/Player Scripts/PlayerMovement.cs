@@ -507,7 +507,7 @@ public class PlayerMovement : MonoBehaviour
 
                 flash = 1;
                 death_sound.Play();
-                iframes = 6f;
+                iframes = 15f;
             }
         }
 
@@ -539,7 +539,7 @@ public class PlayerMovement : MonoBehaviour
                 death_sound.Play();
                 Destroy(collision.gameObject);
 
-                iframes = 6f;
+                iframes = 15f;
             }
         }
     }

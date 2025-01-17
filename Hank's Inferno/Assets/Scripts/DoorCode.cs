@@ -11,12 +11,17 @@ public class DoorCode : MonoBehaviour
     public Vector3[] door_pos = new Vector3[99];
     public Vector3[] door_pos_2 = new Vector3[99];
     private bool open = false;
+    public GameObject door_place;
 
     // Start is called before the first frame update
 
     void Start()
     {
-        
+        for (var _i = 0; _i < 11; _i++)
+        {
+            Instantiate(door_place, door_pos[_i], Quaternion.identity);
+            Instantiate(door_place, door_pos_2[_i] + new Vector3(0,-2f,0), Quaternion.identity);
+        }
     }
 
     // Update is called once per frame
