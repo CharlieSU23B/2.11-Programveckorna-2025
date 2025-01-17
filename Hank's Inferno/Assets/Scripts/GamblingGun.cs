@@ -33,8 +33,6 @@ public class GamblingGun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(queuedBulletsTimer);
-
         if (Input.GetKeyDown(KeyCode.Q))
             Roll();
 

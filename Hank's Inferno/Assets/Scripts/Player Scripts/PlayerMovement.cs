@@ -244,10 +244,10 @@ public class PlayerMovement : MonoBehaviour
                     rb.velocity = new Vector2(h_speed, v_speed);
 
                     // Squash and Stretch
-                    x_scale -= 0.2f;
-                    y_scale -= 0.2f;
+                    x_scale -= 0.35f;
+                    y_scale -= 0.35f;
 
-                    dash_charge += 0.2f;
+                    dash_charge += 0.35f;
 
                     fake_sprite.transform.localScale = new Vector2(x_scale * flip_scale * 4.5f, y_scale * 4.5f);
 
@@ -272,7 +272,7 @@ public class PlayerMovement : MonoBehaviour
                     fake_sprite.GetComponent<Animator>().Play("PlayerIdle", 0, 0);
 
                     // Rigidbody
-                    rb.velocity = new Vector2(h_speed,v_speed*2f).normalized * 28f * dash_charge;
+                    rb.velocity = new Vector2(h_speed,v_speed*2f).normalized * 41 * dash_charge;
 
                     // Land
                     if (Physics2D.BoxCast(transform.position, box_mask, 0, -transform.up, box_distance, ground_layer) && rb.velocity.y < 0f)
@@ -298,7 +298,7 @@ public class PlayerMovement : MonoBehaviour
 
                     fake_sprite.transform.localScale = new Vector2(x_scale * flip_scale * 4.5f, y_scale * 4.5f);
 
-                    dash_charge -= 0.1f;
+                    dash_charge -= 0.165f;
 
                     if (dash_charge <= 0f) state = "FREE";
                 }
