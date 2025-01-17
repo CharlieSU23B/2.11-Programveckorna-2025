@@ -25,5 +25,5 @@ MonoBehaviour:
   drag: 1
   lifetime: 60
   size: 0.4
-  recoil: 5
+  recoil: 2
   knockback: 7

@@ -49,10 +49,14 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource death_sound;
     public AudioSource elevator_sound;
     public AudioSource heal_sound;
+    public AudioSource music;
 
     // Start is called before the first frame update
     void Start()
     {
+        music.Stop();
+        music.Play();
+
         healing = 1;
 
         elevator = GameObject.Find("Door");
