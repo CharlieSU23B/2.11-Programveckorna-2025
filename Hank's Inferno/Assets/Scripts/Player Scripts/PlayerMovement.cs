@@ -410,7 +410,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
 
-        if(Input.GetKey(KeyCode.F))
+        if(Input.GetKey(KeyCode.LeftControl))
         {
             healing_draw += (0 - healing_draw) * 2.5f * Time.deltaTime;
 
@@ -453,6 +453,36 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 8f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 8f;
                 if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().scale[GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp-1] = 0;
+                if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp--;
+
+                GameObject _e1 = Instantiate(explosion, transform.position, Quaternion.identity);
+                _e1.GetComponent<ExplosionCode>().timer = 0.25f;
+                _e1.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.1f);
+                _e1.GetComponent<ExplosionCode>().create_times = 0;
+                _e1.GetComponent<SpriteRenderer>().sortingOrder = 12;
+                _e1.GetComponent<ExplosionCode>().scale = 12f;
+                _e1.GetComponent<ExplosionCode>().un_timed = true;
+
+                for (int _i = 0; _i < 3; _i++)
+                {
+                    GameObject _e = Instantiate(explosion, transform.position, Quaternion.identity);
+                    _e.GetComponent<ExplosionCode>().create_times = Random.Range(3, 7);
+                    _e.GetComponent<ExplosionCode>().dir = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0).normalized;
+                    _e.GetComponent<ExplosionCode>().timer = Random.Range(0.1f, 0.25f);
+                }
+
+                flash = 1;
+                death_sound.Play();
+                iframes = 6f;
+            }
+        }
+
+        if (collision.tag == "Spike")
+        {
+            if (iframes <= 0f)
+            {
+                if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 8f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 8f;
+                if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().scale[GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp - 1] = 0;
                 if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp--;
 
                 GameObject _e1 = Instantiate(explosion, transform.position, Quaternion.identity);

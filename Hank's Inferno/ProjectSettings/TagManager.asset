@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Enemy
   - EnemyBullet
+  - Spike
   layers:
   - Default
   - TransparentFX
