@@ -55,9 +55,17 @@ public class PlayerMovement : MonoBehaviour
     {
         healing = 1;
 
+        elevator = GameObject.Find("Door");
+
+        GameObject.Find("Main Camera").GetComponent<CameraController>().alpha = 1;
+        state = "ELEVATOR OPEN";
+        GameObject.Find("Main Camera").GetComponent<CameraController>().fade = false;
+        transform.position = elevator.transform.position;
+
         float _choose = Random.Range(0, 100);
         int _current_i = 0;
 
+        room_i = 0;
         for (room_i = 0; room_i < rooms; room_i++)
         {
             if (room_i * (100 / rooms) <= _choose)
@@ -65,14 +73,19 @@ public class PlayerMovement : MonoBehaviour
                 transform.position = new Vector3(0, -room_i * 32, 0);
 
                 GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y = -room_i * 32;
-                GameObject.Find("Door").GetComponent<DoorCode>().transform.position = GameObject.Find("Door").GetComponent<DoorCode>().door_pos_2[room_i];
-
                 _current_i = room_i;
             }
         }
-
         room_i = _current_i;
+
         rooms_count++;
+
+        elevator.transform.position = new Vector3(0, GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y + 32, 0);
+
+        GameObject.Find("Main Camera").transform.position = new Vector3(0, GameObject.Find("Main Camera").GetComponent<CameraController>().camera_y, -10);
+
+        elevator_timer = 18f;
+        elevator_y_speed = 0;
     }
 
     // Update is called once per frame
