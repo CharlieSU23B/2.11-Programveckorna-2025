@@ -108,8 +108,6 @@ MonoBehaviour:
   hitscan: 0
   dust: {fileID: 7827948964007492516, guid: 9503c01ee8db7324abb5f6f696fc50cc, type: 3}
   target_scale: 0.5
-  sound: {fileID: 0}
-  hurt_sound: {fileID: 0}
 --- !u!58 &9051501250505080395
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -142,9 +140,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.25}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.5
 --- !u!50 &4363908004395766307
 Rigidbody2D:
   serializedVersion: 4

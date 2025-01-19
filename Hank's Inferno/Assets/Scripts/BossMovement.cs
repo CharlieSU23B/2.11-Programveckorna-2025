@@ -147,12 +147,12 @@ public class BossMovement : MonoBehaviour
                                 if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 1.5f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 1.5f;
                             }
 
-                            GameObject _bullet = Instantiate(enemy_bullet, new Vector3(transform.position.x, transform.position.y+0.5f, transform.position.z), Quaternion.identity);
+                            GameObject _bullet = Instantiate(enemy_bullet, new Vector3(transform.position.x, transform.position.y+1.25f, transform.position.z), Quaternion.identity);
                             _bullet.GetComponent<EnemyBulletCode>().direction = new Vector3(1,0,0);
                             _bullet.GetComponent<EnemyBulletCode>().target_scale = 1;
                             _bullet.GetComponent<EnemyBulletCode>().b_speed = 24f;
 
-                            GameObject _bullet2 = Instantiate(enemy_bullet, new Vector3(transform.position.x, transform.position.y+0.5f, transform.position.z), Quaternion.identity);
+                            GameObject _bullet2 = Instantiate(enemy_bullet, new Vector3(transform.position.x, transform.position.y+1.25f, transform.position.z), Quaternion.identity);
                             _bullet2.GetComponent<EnemyBulletCode>().direction = new Vector3(-1, 0, 0);
                             _bullet2.GetComponent<EnemyBulletCode>().target_scale = 1;
                             _bullet2.GetComponent<EnemyBulletCode>().b_speed = 24f;

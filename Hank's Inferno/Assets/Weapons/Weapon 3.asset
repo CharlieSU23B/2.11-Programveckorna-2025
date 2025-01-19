@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weapon 3
   m_EditorClassIdentifier: 
   name: Weapon
-  damage: 7
+  damage: 15
   speed: 32
   hitscan: 0
   spread: 3

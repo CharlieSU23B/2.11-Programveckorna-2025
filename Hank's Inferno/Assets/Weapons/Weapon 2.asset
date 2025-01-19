@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weapon 2
   m_EditorClassIdentifier: 
   name: Si
-  damage: 10
+  damage: 12
   speed: 48
   hitscan: 0
   spread: 3
