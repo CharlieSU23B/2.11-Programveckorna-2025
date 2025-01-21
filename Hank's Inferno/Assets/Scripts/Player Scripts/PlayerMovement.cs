@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer flash_2;
     public float flash = 0f;
     private bool fall = false;
-    public float healing = 1;
+    public float healing = 1; // healing variable is now withdrawals
     public float healing_draw = 0;
     public AudioSource jump_sound;
     public AudioSource land_sound;
@@ -95,6 +95,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(healing <= 0f)
+        {
+            max_speed = 2.5f;
+        }
+        else
+        {
+            max_speed = 8.5f;
+        }
+
         switch (state)
         {
             case ("FREE"):
@@ -262,7 +271,7 @@ public class PlayerMovement : MonoBehaviour
 
                         dash_sound.Play();
 
-                        iframes = 2.25f;
+                        if(healing > 0) iframes = 2.25f;
 
                         if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 2f * dash_charge) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 2f*dash_charge;
 
@@ -276,7 +285,14 @@ public class PlayerMovement : MonoBehaviour
                     fake_sprite.GetComponent<Animator>().Play("PlayerIdle", 0, 0);
 
                     // Rigidbody
-                    rb.velocity = new Vector2(h_speed,v_speed*2f).normalized * 41 * dash_charge;
+                    if (healing <= 0)
+                    {
+                        rb.velocity = new Vector2(h_speed, v_speed * 2f).normalized * 22f * dash_charge;
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector2(h_speed, v_speed * 2f).normalized * 41 * dash_charge;
+                    }
 
                     // Land
                     if (Physics2D.BoxCast(transform.position, box_mask, 0, -transform.up, box_distance, ground_layer) && rb.velocity.y < 0f)
@@ -408,32 +424,37 @@ public class PlayerMovement : MonoBehaviour
 
                     if(elevator_timer <= 0f)
                     {
+                        heal_sound.Play();
+
+                        if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 8f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 8f;
+                        if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp++;
+                        if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().scale[GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp - 1] = 0;
+
                         state = "FREE";
                     }
                 }
                 break;
         }
-
-        if(Input.GetKey(KeyCode.LeftControl))
+        
+        if(healing <= 0)
         {
-            healing_draw += (0 - healing_draw) * 2.5f * Time.deltaTime;
-
-            if(healing_draw <= 0.01f && healing >= 1)
-            {
-                healing = 0;
-                healing_draw = 0;
-
-                heal_sound.Play();
-
-                if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 8f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 8f;
-                if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp++;
-                if (GameObject.Find("PlayerHealth") != null) GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().scale[GameObject.Find("PlayerHealth").GetComponent<PlayerHealthCode>().hp-1] = 0;
-            }
+            GameObject.Find("Withdrawals").GetComponent<SpriteRenderer>().enabled = true;
+            GameObject.Find("Withdrawals (1)").GetComponent<SpriteRenderer>().enabled = true;
+            GameObject.Find("Withdrawals (2)").GetComponent<SpriteRenderer>().enabled = true;
+            GameObject.Find("Withdrawals (3)").GetComponent<SpriteRenderer>().enabled = true;
+            if(GameObject.Find("Main Camera").GetComponent<CameraController>().flash_alpha <= 0) GameObject.Find("Main Camera").GetComponent<CameraController>().flash_alpha = 0.2f;
         }
         else
         {
-            healing_draw += (healing - healing_draw) * 10f * Time.deltaTime;
+            GameObject.Find("Withdrawals").GetComponent<SpriteRenderer>().enabled = false;
+            GameObject.Find("Withdrawals (1)").GetComponent<SpriteRenderer>().enabled = false;
+            GameObject.Find("Withdrawals (2)").GetComponent<SpriteRenderer>().enabled = false;
+            GameObject.Find("Withdrawals (3)").GetComponent<SpriteRenderer>().enabled = false;
         }
+        
+        healing -= 0.025f * Time.fixedDeltaTime;
+
+        healing_draw += (healing - healing_draw) * 10f * Time.deltaTime;
 
         healing = Mathf.Clamp(healing, 0, 1);
         healing_draw = Mathf.Clamp(healing_draw, 0, 1);
