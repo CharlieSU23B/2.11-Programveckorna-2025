@@ -211,6 +211,12 @@ public class EnemyMovement2 : MonoBehaviour
 
         if (hp <= 0)
         {
+            if (Random.Range(0, 100) <= 30)
+            {
+                GameObject.Find("Hank_arm").GetComponent<GamblingGun>().coin.transform.localScale = new Vector3(0, 0, 0);
+                GameObject.Find("Hank_arm").GetComponent<GamblingGun>().coins_amount++;
+            }
+
             GameObject _e1 = Instantiate(explosion, transform.position, Quaternion.identity);
             _e1.GetComponent<ExplosionCode>().timer = 0.25f;
             _e1.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.1f);

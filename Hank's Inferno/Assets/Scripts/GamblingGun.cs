@@ -11,7 +11,7 @@ public class GamblingGun : MonoBehaviour
     public List<WeaponType> weapons = new List<WeaponType>();
     public int curWeapon = 0;
     [SerializeField] private float rerollDuration = 3f;
-    [SerializeField] private TextMeshProUGUI slot1, slot2, slot3;
+    [SerializeField] public TextMeshProUGUI slot1, slot2, slot3, coin;
     [SerializeField] private Vector3 centerOffset;
     [SerializeField] private GameObject bullet;
     public AudioSource sound;
@@ -19,6 +19,7 @@ public class GamblingGun : MonoBehaviour
     public AudioSource roll_sound;
     public AudioSource end_sound;
     private bool roll_audio = false;
+    public int coins_amount = 1;
 
     float rerollTime = 0f;
     float time = 0;
@@ -31,14 +32,21 @@ public class GamblingGun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        coins_amount = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && coins_amount > 0)
         {
+            if(GameObject.Find("Player").GetComponent<PlayerMovement>().healing <= 0) GameObject.Find("Main Camera").GetComponent<CameraController>().flash_alpha = 0.2f;
+
+            GameObject.Find("Player").GetComponent<PlayerMovement>().healing = 1;
+
+            coin.transform.localScale = new Vector3(0, 0, 0);
+            coins_amount--;
+
             roll_audio = false;
             Roll();
             start_sound.Play();
@@ -78,6 +86,9 @@ public class GamblingGun : MonoBehaviour
                 slot3.text = curWeapon.ToString();
             }
         }
+
+        coin.transform.localScale += (new Vector3(1, 1, 1) - coin.transform.localScale) * 1f * Time.deltaTime;
+        coin.text = coins_amount.ToString();
 
         time -= 10f * Time.deltaTime;
 
