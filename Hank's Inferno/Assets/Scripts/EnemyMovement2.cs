@@ -42,6 +42,8 @@ public class EnemyMovement2 : MonoBehaviour
         {
             case ("FREE"):
                 {
+                    fake_sprite.GetComponent<Animator>().Play("RushEnemyDash",0,0);
+
                     // Walking code
                     if(player.transform.position.x > transform.position.x)
                     {
@@ -115,6 +117,8 @@ public class EnemyMovement2 : MonoBehaviour
                         {
                             h_speed = 0;
 
+                            fake_sprite.GetComponent<Animator>().Play("RushEnemyDash",0,0);
+
                             state = "RUSH";
 
                             rush_timer = 6.5f;
@@ -133,7 +137,8 @@ public class EnemyMovement2 : MonoBehaviour
                     x_scale += (1 - x_scale) * 10f * Time.deltaTime;
                     y_scale += (1 - y_scale) * 10f * Time.deltaTime;
 
-                    fake_sprite.transform.localScale = new Vector2(x_scale, y_scale);
+                    fake_sprite.transform.localScale = new Vector2(x_scale * walk_dir * -6, y_scale * 6);
+                    fake_sprite.transform.position = new Vector3(transform.position.x-(0.75f*walk_dir),transform.position.y,transform.position.z);
                 }
                 break;
 
@@ -194,9 +199,10 @@ public class EnemyMovement2 : MonoBehaviour
                     x_scale += (1 - x_scale) * 10f * Time.deltaTime;
                     y_scale += (1 - y_scale) * 10f * Time.deltaTime;
 
-                    fake_sprite.transform.localScale = new Vector2(x_scale, y_scale);
+                    fake_sprite.transform.localScale = new Vector2(x_scale * walk_dir * -6, y_scale * 6);
+                    fake_sprite.transform.position = new Vector3(transform.position.x - (0.75f * walk_dir), transform.position.y, transform.position.z);
 
-                    if(rush_timer <= 0)
+                    if (rush_timer <= 0)
                     {
                         h_speed = 0;
                         state = "FREE";
