@@ -44,8 +44,8 @@ public class BossMovement : MonoBehaviour
         boss_health_bar = GameObject.Find("BossHealthBar");
         health_fill = health_bar.GetComponent<Image>();
 
-        hp = 1200;
-        max_hp = 1200;
+        hp = 2000;
+        max_hp = 2000;
     }
 
     // Update is called once per frame
@@ -58,12 +58,12 @@ public class BossMovement : MonoBehaviour
                     if(hp <= max_hp/2)
                     {
                         // Phase 2
-                        max_speed = 5.5f;
+                        max_speed = 9.5f;
                     }
                     else
                     {
                         // Phase 1
-                        max_speed = 4f;
+                        max_speed = 8f;
                     }
 
                     // Wall Check
