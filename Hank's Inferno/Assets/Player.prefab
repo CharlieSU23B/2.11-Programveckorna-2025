@@ -298,17 +298,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f4f5ddceb94dd1442806a45cf1994062, type: 2}
   - {fileID: 11400000, guid: dc2c445cfc1a71746b2bc2bf515e21bc, type: 2}
   - {fileID: 11400000, guid: 0623d419c60aed841822512d8e0f9d1d, type: 2}
+  - {fileID: 11400000, guid: 5516a1f1a43149c4bace387ef32af050, type: 2}
   curWeapon: 0
   rerollDuration: 3
   slot1: {fileID: 0}
   slot2: {fileID: 0}
   slot3: {fileID: 0}
+  coin: {fileID: 0}
   centerOffset: {x: 0, y: 0, z: 0}
   bullet: {fileID: 3403798650011718623, guid: e0ec4a2316a56f044a725ceeb5611580, type: 3}
   sound: {fileID: 3199937258042922166}
   start_sound: {fileID: 8387944568470283420}
   roll_sound: {fileID: 4410478457081774101}
   end_sound: {fileID: 6662878610239492649}
+  coins_amount: 1
 --- !u!82 &3199937258042922166
 AudioSource:
   m_ObjectHideFlags: 0

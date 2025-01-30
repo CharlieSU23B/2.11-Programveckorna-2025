@@ -188,7 +188,7 @@ public class GamblingGun : MonoBehaviour
         }
 
         Quaternion rot = Quaternion.Euler(0, 0, (180 / Mathf.PI) * Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - (transform.position.y + centerOffset.y), Camera.main.ScreenToWorldPoint(Input.mousePosition).x - (transform.position.x + centerOffset.x)));
-        //rot = Quaternion.EulerAngles(0, 0, rot.eulerAngles.z + Random.Range(-weapons[curWeapon].spread, weapons[curWeapon].spread));
+        rot = Quaternion.Euler(0, 0, rot.eulerAngles.z+Random.Range(-weapons[curWeapon].spread, weapons[curWeapon].spread));
         GameObject b = Instantiate(bullet, (transform.position + centerOffset) + transform.right * 2, rot);
         b.transform.localScale = new Vector3(weapons[curWeapon].size, weapons[curWeapon].size, 1);
 
