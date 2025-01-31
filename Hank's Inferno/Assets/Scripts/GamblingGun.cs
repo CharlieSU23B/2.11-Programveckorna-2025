@@ -32,7 +32,7 @@ public class GamblingGun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        coins_amount = 1;
+        coins_amount = 999;
     }
 
     // Update is called once per frame
@@ -190,7 +190,7 @@ public class GamblingGun : MonoBehaviour
         Quaternion rot = Quaternion.Euler(0, 0, (180 / Mathf.PI) * Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - (transform.position.y + centerOffset.y), Camera.main.ScreenToWorldPoint(Input.mousePosition).x - (transform.position.x + centerOffset.x)));
         rot = Quaternion.Euler(0, 0, rot.eulerAngles.z+Random.Range(-weapons[curWeapon].spread, weapons[curWeapon].spread));
         GameObject b = Instantiate(bullet, (transform.position + centerOffset) + transform.right * 2, rot);
-        b.transform.localScale = new Vector3(weapons[curWeapon].size, weapons[curWeapon].size, 1);
+        b.transform.localScale = new Vector3(weapons[curWeapon].size+1, weapons[curWeapon].size+1, 1);
 
         PlayerBullet bul = b.GetComponent<PlayerBullet>();
         bul.speed = weapons[curWeapon].speed + Random.Range(-weapons[curWeapon].speedVariation, weapons[curWeapon].speedVariation);
