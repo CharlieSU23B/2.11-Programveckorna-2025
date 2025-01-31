@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Weapon 4
   m_EditorClassIdentifier: 
   name: Shotgunus
-  damage: 15
+  damage: 22
   speed: 32
   hitscan: 0
   spread: 30
   speedVariation: 0
   magSize: 15
-  reload: 0.2
+  reload: 1
   bulletAmount: 8
   bulletOffset: 0
   drag: 1
-  lifetime: 60
-  size: 0.6
-  recoil: 5
+  lifetime: 0
+  size: 2
+  recoil: 2
   knockback: 7

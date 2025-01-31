@@ -18,13 +18,23 @@ public class PlayerBullet : MonoBehaviour
     {
         transform.localScale = new Vector3(target_scale * 4, target_scale * 4, 1);
         if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 1f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 1f;
-        Destroy(gameObject, lifetime);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.localScale += (new Vector3(target_scale, target_scale, 1) - transform.localScale) * 10f * Time.fixedDeltaTime;
+        lifetime -= Time.deltaTime;
+        if (lifetime <= 0)
+        {
+            if (transform.localScale.x <= 0) Destroy(gameObject);
+
+            transform.localScale -= new Vector3(0.25f, 0.25f, 0.25f);
+        }
+        else
+        {
+            transform.localScale += (new Vector3(target_scale, target_scale, 1) - transform.localScale) * 10f * Time.fixedDeltaTime;
+        }
+
         transform.position += transform.right * speed * Time.fixedDeltaTime;
         speed = Mathf.Max(speed - drag * Time.fixedDeltaTime, 0f);
     }
