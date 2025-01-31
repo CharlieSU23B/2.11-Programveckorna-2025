@@ -299,6 +299,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dc2c445cfc1a71746b2bc2bf515e21bc, type: 2}
   - {fileID: 11400000, guid: 0623d419c60aed841822512d8e0f9d1d, type: 2}
   - {fileID: 11400000, guid: 5516a1f1a43149c4bace387ef32af050, type: 2}
+  - {fileID: 11400000, guid: abd916a685491694f89507099414adf7, type: 2}
   curWeapon: 0
   rerollDuration: 3
   slot1: {fileID: 0}
