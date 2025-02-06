@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Weapon", menuName = "Weapon")]
 public class WeaponType : ScriptableObject
 {
-    public string name = "Weapon";
+    public string name = "Weapon"; // Detta visas inte ens i spelet, så lite onödigt.
 	public float damage = 1f;
 	public float speed = 16f;
 	public bool hitscan = false;

@@ -42,6 +42,7 @@ public class CameraController : MonoBehaviour
         }
         else
         {
+            // Detta är en rum baserad kamera som kan ha alla möjliga storlekar på rummen (inte form dock, det måste vara en rektangel) gjord av Dennis!!!
             Vector3 targetPos = player.transform.position + new Vector3(0, 1, -10);
             float horSize = cam.orthographicSize * (16f / 9f);
 
