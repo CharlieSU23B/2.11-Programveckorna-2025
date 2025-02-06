@@ -13,16 +13,11 @@ public class RoomData : MonoBehaviour
         trigger = GetComponent<BoxCollider2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Player")
         {
+            // Allt detta gör är att ge rummets yta till kamera skriptet så att den håller sig där.
             Camera.main.GetComponent<CameraController>().cameraBounds = new Rect(transform.position.x - (trigger.size.x / 2), transform.position.y + (trigger.size.y / 2), transform.position.x + (trigger.size.x / 2), transform.position.y - (trigger.size.y / 2));
         }
     }

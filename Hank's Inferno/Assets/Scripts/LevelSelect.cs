@@ -7,6 +7,7 @@ public class LevelSelect : MonoBehaviour
 {
     public void GoToLevel(int sceneNum)
     {
+        // Enklaste grejen någonsin.
         SceneManager.LoadScene(sceneNum);
     }
 }
