@@ -7,6 +7,7 @@ public class WildlifeCode : MonoBehaviour
     public float rot;
     public float rot_dir = 1;
     public float rot_dir_time = 0;
+    public float rot_wiggle = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -30,8 +31,24 @@ public class WildlifeCode : MonoBehaviour
 
         rot_dir_time -= 10 * Time.deltaTime;
 
-        rot += ((rot_dir * 25) - rot) * 0.1f * Time.deltaTime;
+        rot += ((rot_dir * 25 - rot) * (0.1f * Time.deltaTime));
 
         transform.rotation = Quaternion.Euler(0, 0, rot);
+
+        if(Vector3.Distance(GameObject.Find("Player").transform.position,transform.position + new Vector3(0,0.5f,0))< 0.5f)
+        {
+            if (rot_wiggle <= 0)
+            {
+                rot_wiggle = 1;
+
+                transform.localScale = new Vector3(1, 4f, 1f);
+            }
+        }
+        else
+        {
+            rot_wiggle = 0;
+        }
+
+        transform.localScale += (new Vector3(2, 2, 1) - transform.localScale) * 10f * Time.deltaTime;
     }
 }
