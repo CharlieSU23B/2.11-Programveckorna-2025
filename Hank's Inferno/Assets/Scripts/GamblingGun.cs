@@ -264,7 +264,7 @@ public class GamblingGun : MonoBehaviour
                 bul.drag = weapons[curWeapon].drag;
                 bul.lifetime = 0.01f;
                 bul.knockback = weapons[curWeapon].knockback;
-                bul.damage = weapons[curWeapon].damage;
+                bul.damage = weapons[curWeapon].damage/3;
                 bul.hitscan = weapons[curWeapon].hitscan;
                 bul.target_scale = weapons[curWeapon].size / 3;
             }
