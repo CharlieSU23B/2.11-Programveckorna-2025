@@ -40,6 +40,7 @@ public class GodIsHere : MonoBehaviour
             if (waitTime <= 0f)
             {
                 player.state = "FREE";
+                god.GetComponent<AudioSource>().Play(); // Jag vet att detta är ett osäkert sätt att göra saker på, men projektet ska in idag!
             }
         }
         else

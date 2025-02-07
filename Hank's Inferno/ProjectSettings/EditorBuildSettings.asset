@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/LevelSelect.unity
     guid: ab9f315bc6b83134fa88a6e9b0342abf
   - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: a003c2fa9e5b1534ca569bab59e3c59a
+  - enabled: 1
     path: Assets/Scenes/Limbo.unity
     guid: c0082ff9911ca654ca89d28ed7ff9730
   - enabled: 1
