@@ -339,6 +339,8 @@ public class PlayerMovement : MonoBehaviour
                     
                     if (elevator_timer > 0)
                     {
+                        // Approaches the door smoothly with this function (it's actually the lerp fucntion but this is more efficient for memory I think )
+                        // Function is x += (y - x) * z, x is the variable changing, y is the target value, and z is the speed
                         transform.position += ((elevator.transform.position + new Vector3(0, -2f, 0)) - transform.position) * 10f * Time.deltaTime;
                     }
                     else
@@ -352,6 +354,9 @@ public class PlayerMovement : MonoBehaviour
 
                             if(GameObject.Find("Main Camera").GetComponent<CameraController>().alpha >= 1)
                             {
+                                // When the screen fades, the door will choose a room at random, then marking that room with a boolean, so it cannot be choosen again
+                                // Then it also counts the amount of rooms until the boss
+
                                 if (rooms_count < 10)
                                 {
                                     state = "ELEVATOR OPEN";
@@ -412,6 +417,7 @@ public class PlayerMovement : MonoBehaviour
                             }
                         }
 
+                        // Sets the position to the elevator
                         transform.position = elevator.transform.position + new Vector3(0, -2f, 0);
                     }
 

@@ -32,6 +32,7 @@ public class PlayerBullet : MonoBehaviour
         }
         else
         {
+            // Changing the scale giving it an muscle flash effect.
             transform.localScale += (new Vector3(target_scale, target_scale, 1) - transform.localScale) * 10f * Time.fixedDeltaTime;
         }
 
@@ -41,6 +42,8 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // destroys itself upon hitting the ground
+
         if (collision.tag == "Ground")
         {
             GameObject _dust = Instantiate(dust, transform.position, Quaternion.identity);
@@ -48,7 +51,9 @@ public class PlayerBullet : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if(collision.tag == "Enemy")
+        // Damages and knockbacks enemies
+
+        if (collision.tag == "Enemy")
         {
             if (collision.GetComponent<EnemyMovement>() != null)
             {

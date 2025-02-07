@@ -38,15 +38,21 @@ public class GamblingGun : MonoBehaviour
     int queuedBullets = 0;
     float queuedBulletsTimer = 0f;
 
+    // wall check variables
+    private bool in_wall = false;
+    private float extend = 0;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        coins_amount = 999;
+        coins_amount = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Input for gambling
         if (Input.GetKeyDown(KeyCode.Q) && coins_amount > 0)
         {
             if(GameObject.Find("Player").GetComponent<PlayerMovement>().healing <= 0) GameObject.Find("Main Camera").GetComponent<CameraController>().flash_alpha = 0.2f;
@@ -61,6 +67,7 @@ public class GamblingGun : MonoBehaviour
             start_sound.Play();
         }
 
+        // The timer for multiple bullet, one bullet then the next.
         queuedBulletsTimer -= Time.deltaTime;
         if(queuedBulletsTimer <= 0f)
         {
@@ -178,6 +185,22 @@ public class GamblingGun : MonoBehaviour
             FireBullet();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Ground")
+        {
+            in_wall = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Ground")
+        {
+            in_wall = false;
+        }
+    }
+
     void FireBullet()
     {
         queuedBullets--;
@@ -188,6 +211,7 @@ public class GamblingGun : MonoBehaviour
             queuedBulletsTimer = weapons[curWeapon].reload;
 
         // Eskils kod
+        // Yes, Eskil here; this is just recoil
         if (GameObject.Find("Player") != null)
         {
             float _h_recoil = (Camera.main.ScreenToWorldPoint(Input.mousePosition).x - GameObject.Find("Player").transform.position.x);
@@ -204,20 +228,46 @@ public class GamblingGun : MonoBehaviour
             GameObject.Find("Player").GetComponent<PlayerMovement>().v_speed += _v_recoil * -1f * weapons[curWeapon].recoil;
         }
 
-        // Skjut mot musens position.
-        Quaternion rot = Quaternion.Euler(0, 0, (180 / Mathf.PI) * Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - (transform.position.y + centerOffset.y), Camera.main.ScreenToWorldPoint(Input.mousePosition).x - (transform.position.x + centerOffset.x)));
-        rot = Quaternion.Euler(0, 0, rot.eulerAngles.z+Random.Range(-weapons[curWeapon].spread, weapons[curWeapon].spread));
-        GameObject b = Instantiate(bullet, (transform.position + centerOffset) + transform.right * 2, rot);
-        b.transform.localScale = new Vector3(weapons[curWeapon].size+1, weapons[curWeapon].size+1, 1);
+        if (in_wall == false)
+        {
+            // Skjut mot musens position.
+            Quaternion rot = Quaternion.Euler(0, 0, (180 / Mathf.PI) * Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - (transform.position.y + centerOffset.y), Camera.main.ScreenToWorldPoint(Input.mousePosition).x - (transform.position.x + centerOffset.x)));
+            rot = Quaternion.Euler(0, 0, rot.eulerAngles.z + Random.Range(-weapons[curWeapon].spread, weapons[curWeapon].spread));
+            GameObject b = Instantiate(bullet, (transform.position + centerOffset) + transform.right * 2, rot);
+            b.transform.localScale = new Vector3(weapons[curWeapon].size + 1, weapons[curWeapon].size + 1, 1);
 
-        // Ge skottet alla egenskaper som behövs.
-        PlayerBullet bul = b.GetComponent<PlayerBullet>();
-        bul.speed = weapons[curWeapon].speed + Random.Range(-weapons[curWeapon].speedVariation, weapons[curWeapon].speedVariation);
-        bul.drag = weapons[curWeapon].drag;
-        bul.lifetime = weapons[curWeapon].lifetime;
-        bul.knockback = weapons[curWeapon].knockback;
-        bul.damage = weapons[curWeapon].damage;
-        bul.hitscan = weapons[curWeapon].hitscan;
-        bul.target_scale = weapons[curWeapon].size;
+            // Ge skottet alla egenskaper som behövs.
+
+            PlayerBullet bul = b.GetComponent<PlayerBullet>();
+            bul.speed = weapons[curWeapon].speed + Random.Range(-weapons[curWeapon].speedVariation, weapons[curWeapon].speedVariation);
+            bul.drag = weapons[curWeapon].drag;
+            bul.lifetime = weapons[curWeapon].lifetime;
+            bul.knockback = weapons[curWeapon].knockback;
+            bul.damage = weapons[curWeapon].damage;
+            bul.hitscan = weapons[curWeapon].hitscan;
+            bul.target_scale = weapons[curWeapon].size;
+        }
+        else
+        {
+            for (int _i = 0; _i < Random.Range(3, 5); _i++)
+            {
+                // Skjut mot musens position.
+                Quaternion rot = Quaternion.Euler(0, 0, (180 / Mathf.PI) * Mathf.Atan2(Camera.main.ScreenToWorldPoint(Input.mousePosition).y - (transform.position.y + centerOffset.y), Camera.main.ScreenToWorldPoint(Input.mousePosition).x - (transform.position.x + centerOffset.x)));
+                rot = Quaternion.Euler(0, 0, rot.eulerAngles.z + 180 + Random.Range((-weapons[curWeapon].spread) - 35, weapons[curWeapon].spread + 35));
+                GameObject b = Instantiate(bullet, (transform.position + centerOffset) + transform.right*-0.1f, rot);
+                b.transform.localScale = new Vector3(weapons[curWeapon].size / 3 + 1, weapons[curWeapon].size / 3 + 1, 1);
+
+                // Ge skottet alla egenskaper som behövs.
+
+                PlayerBullet bul = b.GetComponent<PlayerBullet>();
+                bul.speed = weapons[curWeapon].speed + Random.Range(-weapons[curWeapon].speedVariation, weapons[curWeapon].speedVariation);
+                bul.drag = weapons[curWeapon].drag;
+                bul.lifetime = 0.01f;
+                bul.knockback = weapons[curWeapon].knockback;
+                bul.damage = weapons[curWeapon].damage;
+                bul.hitscan = weapons[curWeapon].hitscan;
+                bul.target_scale = weapons[curWeapon].size / 3;
+            }
+        }
     }
 }
