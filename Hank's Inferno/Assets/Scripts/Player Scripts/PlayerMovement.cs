@@ -51,6 +51,8 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource heal_sound;
     public AudioSource music;
 
+    public bool withdrawls = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -445,6 +447,76 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
                 break;
+
+            case ("EMPTY"):
+                {
+                    // Hej det är jag, Dennis.
+                    // Detta är bara kopierat från "FREE", så jag har inte skrivit något här, bara tagit bort.
+                    // Det ända som ska hända är att spelaren inte ska kunna kontrollera spelaren längre för cutscenes och sånt.
+
+                    h_speed += (0 - h_speed) * 18f * Time.deltaTime;
+
+                    // Ground check
+                    if (Physics2D.BoxCast(transform.position, box_mask, 0, -transform.up, box_distance, ground_layer) && rb.velocity.y <= 0f)
+                    {
+                        if (grounded == false)
+                        {
+                            if (GameObject.Find("Main Camera"))
+                            {
+                                if (GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake < 0.625f) GameObject.Find("Main Camera").GetComponent<CameraController>().screen_shake = 0.625f;
+                            }
+
+                            Instantiate(dust, transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
+
+                            x_scale = 1.5f;
+                            y_scale = 0.5f;
+
+                            land_sound.Play();
+                        }
+
+                        dash = true;
+
+                        jump_buffer = 1;
+
+                        grounded = true;
+                        v_speed = 0;
+                    }
+                    else
+                    {
+                        grounded = false;
+                        v_speed -= 70f * Time.deltaTime;
+
+                        jump_buffer -= 10f * Time.deltaTime;
+                    }
+
+                    if (v_speed <= 0)
+                    {
+                        if (fall == false)
+                        {
+                            fake_sprite.GetComponent<Animator>().Play("PlayerFall");
+
+                            x_scale = 0.75f;
+                            y_scale = 1.25f;
+
+                            fall = true;
+                        }
+                    }
+
+                    if (grounded)
+                    {
+                        fake_sprite.GetComponent<Animator>().Play("PlayerIdle");
+                    }
+
+                    // Rigidbody
+                    rb.velocity = new Vector2(h_speed, v_speed);
+
+                    // Squash and Stretch
+                    x_scale += (1 - x_scale) * 10f * Time.deltaTime;
+                    y_scale += (1 - y_scale) * 10f * Time.deltaTime;
+
+                    fake_sprite.transform.localScale = new Vector2(x_scale * flip_scale * 4.5f, y_scale * 4.5f);
+                }
+                break;
         }
         
         if(healing <= 0)
@@ -463,7 +535,8 @@ public class PlayerMovement : MonoBehaviour
             GameObject.Find("Withdrawals (3)").GetComponent<SpriteRenderer>().enabled = false;
         }
         
-        healing -= 0.025f * Time.fixedDeltaTime;
+        if(withdrawls)
+            healing -= 0.025f * Time.fixedDeltaTime;
 
         healing_draw += (healing - healing_draw) * 10f * Time.deltaTime;
 

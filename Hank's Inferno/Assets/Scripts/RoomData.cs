@@ -6,6 +6,7 @@ using UnityEngine;
 public class RoomData : MonoBehaviour
 {
     private BoxCollider2D trigger;
+    [SerializeField] bool withdrawlsDisabled = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -19,6 +20,8 @@ public class RoomData : MonoBehaviour
         {
             // Allt detta gör är att ge rummets yta till kamera skriptet så att den håller sig där.
             Camera.main.GetComponent<CameraController>().cameraBounds = new Rect(transform.position.x - (trigger.size.x / 2), transform.position.y + (trigger.size.y / 2), transform.position.x + (trigger.size.x / 2), transform.position.y - (trigger.size.y / 2));
+
+            collision.GetComponent<PlayerMovement>().withdrawls = !withdrawlsDisabled;
         }
     }
 }
